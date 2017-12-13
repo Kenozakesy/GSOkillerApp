@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.BoardController">
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <AnchorPane prefHeight="665.0" prefWidth="977.0">
+         <children>
+            <Canvas fx:id="cvBoard" height="560.0" layoutX="370.0" layoutY="53.0" onMouseClicked="#canvasClick" width="560.0" />
+            <Label layoutX="370.0" layoutY="32.0" text="1                2                3               4               5              6               7               8" />
+            <Label layoutX="103.0" layoutY="287.0" prefHeight="34.0" prefWidth="501.0" rotate="90.0" text="1                2                3               4               5              6               7               8" />
+            <Label fx:id="lbName" layoutX="24.0" layoutY="43.0" text="Name: " />
+            <Label fx:id="lbOpponentName" layoutX="24.0" layoutY="93.0" text="OpponentName:" />
+            <Label fx:id="lbTurn" layoutX="24.0" layoutY="142.0" text="Turn:" />
+            <Label fx:id="lbNotify" layoutX="24.0" layoutY="613.0" text="Notify" />
+            <Button layoutX="21.0" layoutY="225.0" mnemonicParsing="false" onAction="#btnReset" text="reset" />
+            <Label fx:id="lbWinner" layoutX="24.0" layoutY="179.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</GridPane>
