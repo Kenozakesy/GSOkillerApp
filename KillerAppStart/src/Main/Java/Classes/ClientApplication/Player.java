@@ -10,7 +10,7 @@ public class Player {
     /**
      *  Fields
      */
-    private int UniqueCode;
+    private int uniqueId;
     private String name;
     private String password;
     private Side side;
@@ -18,8 +18,8 @@ public class Player {
     /**
      *  Properties
      */
-    public int getUniqueCode() {return UniqueCode;}
-    public void setUniqueCode(int uniqueCode) {UniqueCode = uniqueCode;}
+    public int getUniqueId() {return uniqueId;}
+    public void setUniqueId(int uniqueCode) {uniqueId = uniqueCode;}
 
     public String getName() {return name;}
     public void setName(String name) {this.name = name;}
@@ -36,6 +36,12 @@ public class Player {
     public Player()
     {
 
+    }
+
+    public Player(int uniqueId, String name)
+    {
+        this.name = name;
+        this.uniqueId = uniqueId;
     }
 
     /**

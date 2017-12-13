@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Created by Gebruiker on 13-12-2017.
  */
-public class Player {
+public class PlayerInGame {
 
     /**
      *  Fields
@@ -18,12 +18,17 @@ public class Player {
     private ArrayList<Stone> stones;
     private Game game;
 
+    private int uniqueId;
     private String name;
     private Side side;
+
+
 
     /**
      *  Properties
      */
+    public int getUniqueId() {return uniqueId;}
+
     public String getName() {
         return name;
     }
@@ -45,7 +50,7 @@ public class Player {
     /**
      *  Constructor
      */
-    public Player(String name, Side side, Game game) {
+    public PlayerInGame(String name, Side side, Game game) {
         this.stones = new ArrayList<>();
         this.game = game;
 
@@ -54,7 +59,6 @@ public class Player {
 
         createStones();
     }
-
 
     /**
      *  Methods
@@ -232,7 +236,7 @@ public class Player {
 
         removable.getCell().removeStone();
 
-        for (Player P: game.getPlayers())
+        for (PlayerInGame P: game.getPlayers())
         {
             if(P != this)
             {

@@ -17,7 +17,7 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <AnchorPane prefHeight="305.0" prefWidth="434.0">
+      <AnchorPane prefHeight="316.0" prefWidth="434.0">
          <children>
             <Button fx:id="btnLogin" layoutX="189.0" layoutY="243.0" mnemonicParsing="false" onAction="#btnLogin" text="Login" />
             <TextField fx:id="tfUsername" layoutX="124.0" layoutY="166.0" />
@@ -29,6 +29,7 @@
             </Label>
             <Label layoutX="35.0" layoutY="171.0" text="Username: " />
             <Label layoutX="35.0" layoutY="208.0" text="Password: " />
+            <Label fx:id="lbSignal" layoutX="178.0" layoutY="281.0" prefHeight="21.0" prefWidth="98.0" style="-fx-text-fill: red;" textAlignment="CENTER" />
          </children>
       </AnchorPane>
    </children>

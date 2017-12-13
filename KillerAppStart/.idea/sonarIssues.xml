@@ -8,6 +8,26 @@
             <set />
           </value>
         </entry>
+        <entry key="C:/IntelliJProjects/RMI_test/src/Main/Java/Controllers/StartController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="C:/IntelliJProjects/RMI_test/src/Main/Java/Interfaces/IRmiData.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="C:/IntelliJProjects/RMI_test/src/Main/Java/Interfaces/IServerSend.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="C:/IntelliJProjects/RMI_test/src/Main/Java/RMI/Client.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/Main/Java/Classe/Player.java">
           <value>
             <set />
@@ -39,6 +59,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/Main/Java/Classes/GameManager/Player.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/Main/Java/Classes/GameManager/PlayerInGame.java">
           <value>
             <set />
           </value>
@@ -93,12 +118,22 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/Main/Java/Database/DataGameManager.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/Main/Java/Database/DatabaseConnection.java">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/Main/Java/Database/GameManager.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/Main/Java/Database/PlayerManager.java">
           <value>
             <set />
           </value>
@@ -168,6 +203,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/Main/Resources/loginView.fxml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/Main/Test/DatabaseTest/ConnectionTest.java">
           <value>
             <set />
@@ -178,22 +218,7 @@
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/../../../../../../IntelliJProjects/RMI_test/src/Main/Java/Controllers/StartController.java">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/../../../../../../IntelliJProjects/RMI_test/src/Main/Java/Interfaces/IRmiData.java">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/../../../../../../IntelliJProjects/RMI_test/src/Main/Java/Interfaces/IServerSend.java">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/../../../../../../IntelliJProjects/RMI_test/src/Main/Java/RMI/Client.java">
+        <entry key="$PROJECT_DIR$/src/Main/Test/DatabaseTest/PlayerTest.java">
           <value>
             <set />
           </value>

@@ -28,6 +28,8 @@ public class LoginController implements Initializable{
     @FXML
     private Button btnLogin;
 
+    @FXML
+    private Label lbSignal;
 
     /**
      *  Initializet
@@ -44,26 +46,31 @@ public class LoginController implements Initializable{
     @FXML
     public void btnLogin(Event e)
     {
-        String name = tfUsername.getText();
+        String username = tfUsername.getText();
         String password = tfPassword.getText();
 
-        PlayerSingleton.getPlayer().setName(name);
+        if(PlayerSingleton.login(username, password)) {
 
-        //Go to a new view
-        Stage stage = (Stage) btnLogin.getScene().getWindow();
-        stage.close();
+            //Go to a new view
+            Stage stage = (Stage) btnLogin.getScene().getWindow();
+            stage.close();
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../lobbyView.fxml"));
-        Parent root1 = null;
-        try {
-            root1 = fxmlLoader.load();
-        } catch (IOException e1) {
-            e1.printStackTrace();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../lobbyView.fxml"));
+            Parent root1 = null;
+            try {
+                root1 = fxmlLoader.load();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+            if (root1 != null) {
+                Stage stage2 = new Stage();
+                stage2.setScene(new Scene(root1));
+                stage2.show();
+            }
         }
-        if (root1 != null) {
-            Stage stage2 = new Stage();
-            stage2.setScene(new Scene(root1));
-            stage2.show();
+        else
+        {
+            lbSignal.setText("Login failed");
         }
     }
 

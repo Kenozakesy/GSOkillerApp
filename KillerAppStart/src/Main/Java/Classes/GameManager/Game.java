@@ -6,8 +6,6 @@ import javafx.scene.canvas.GraphicsContext;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static Enums.Side.White;
-
 /**
  * Created by Gebruiker on 13-12-2017.
  */
@@ -20,11 +18,11 @@ public class Game {
 
     private int turn;
     private Board board;
-    private ArrayList<Player> players;
+    private ArrayList<PlayerInGame> players;
     private String name;
 
-    private Player currentPlayerTurn;
-    private Player winner;
+    private PlayerInGame currentPlayerTurn;
+    private PlayerInGame winner;
 
     /**
      *  Properties
@@ -37,11 +35,11 @@ public class Game {
     public Board getBoard() {return board;}
     public void setBoard(Board board) {this.board = board;}
 
-    public Player getCurrentPlayerTurn() {return currentPlayerTurn;}
+    public PlayerInGame getCurrentPlayerTurn() {return currentPlayerTurn;}
 
-    public ArrayList<Player> getPlayers() {return players;}
+    public ArrayList<PlayerInGame> getPlayers() {return players;}
 
-    public Player getWinner() {return winner;}
+    public PlayerInGame getWinner() {return winner;}
 
     /**
      *  Constructor
@@ -65,8 +63,8 @@ public class Game {
      */
     public boolean checkGameWon()
     {
-        Player loser = null;
-        for (Player P: players)
+        PlayerInGame loser = null;
+        for (PlayerInGame P: players)
         {
             if(P.getStones().size() == 0)
             {
@@ -74,7 +72,7 @@ public class Game {
             }
         }
 
-        for (Player P: players) {
+        for (PlayerInGame P: players) {
             if(P != loser && loser != null)
             {
                 this.winner = P;
@@ -91,8 +89,8 @@ public class Game {
     {
         players = new ArrayList<>();
 
-        Player player = new Player("player", Side.White, this);
-        Player computer = new Player("com", Side.Black, this);
+        PlayerInGame player = new PlayerInGame("player", Side.White, this);
+        PlayerInGame computer = new PlayerInGame("com", Side.Black, this);
 
         players.add(player);
         players.add(computer);
@@ -105,7 +103,7 @@ public class Game {
 
     public void switchTurns()
     {
-        for (Player P: players) {
+        for (PlayerInGame P: players) {
             if(P != currentPlayerTurn)
             {
                 currentPlayerTurn = P;
@@ -117,7 +115,7 @@ public class Game {
     public void draw(GraphicsContext gc)
     {
         this.board.Draw(gc);
-        for (Player P:this.players)
+        for (PlayerInGame P:this.players)
         {
             P.drawStones(gc);
         }

@@ -6,7 +6,7 @@ package StartUp;
 public class GameManager {
 
 
-    public static void main(String[] args) {
-
-    }
+//    public static void main(String[] args) {
+//
+//    }
 }

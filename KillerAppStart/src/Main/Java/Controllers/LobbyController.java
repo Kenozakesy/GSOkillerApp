@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -27,6 +28,9 @@ public class LobbyController implements Initializable{
     private Button btnLogOut;
 
     @FXML
+    private Label lbLogInAs;
+
+    @FXML
     private Button btnStartGame;
 
     /**
@@ -34,7 +38,9 @@ public class LobbyController implements Initializable{
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        lbLogInAs.setText("Logged in as: " + PlayerSingleton.getPlayer().getName());
 
+        //hier maak een connectie met de server (LobbyManager)
     }
 
 

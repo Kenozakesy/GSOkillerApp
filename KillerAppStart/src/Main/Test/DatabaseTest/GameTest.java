@@ -1,8 +1,7 @@
 package DatabaseTest;
 
 import Classes.GameManager.Game;
-import Database.DatabaseConnection;
-import Database.GameManager;
+import Database.DataGameManager;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -16,7 +15,7 @@ public class GameTest {
     @Test
     public void DatabaseConnectionTest() throws Exception
     {
-        List<Game> games = GameManager.getName();
+        List<Game> games = DataGameManager.getName();
         Assert.assertTrue(games.size() >= 2);
 
         for (Game G: games) {
