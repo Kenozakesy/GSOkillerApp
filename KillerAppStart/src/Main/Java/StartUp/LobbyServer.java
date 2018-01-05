@@ -1,44 +1,45 @@
 package StartUp;
 
+import Classes.LobbyManager.LobbyManager;
 import Interfaces.ILobbyManager;
-import com.sun.corba.se.spi.activation.Server;
 
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
 
 /**
  * Created by Gebruiker on 12-12-2017.
  */
-public class LobbyManager implements ILobbyManager {
+public class LobbyServer {
 
-    private static Registry reg = null;
-    private static final String bindingName = "server";
+    private static Registry registry = null;
+    private static final String bindingName = "lobbyServer";
     private static final int port = 1099;
+    private static LobbyManager lobbyManager = null;
 
     public static void main(String[] args) {
 
+        // Create a newGame
+        lobbyManager = LobbyManager.getInstance();
+        System.out.println("Server: Lobby created");
+
         try {
-            reg = LocateRegistry.createRegistry(port);
+            registry = LocateRegistry.createRegistry(port);
         } catch (Exception e) {
             System.out.println("ERROR: Could not create the registry.");
             e.printStackTrace();
         }
 
-        LobbyManager serverObject = new LobbyManager(); //moet ff getest worden
+        //Server serverObject = new Server();
+
         try {
-            reg.rebind(bindingName, (ILobbyManager) UnicastRemoteObject.exportObject(serverObject, port));
-            System.out.println("server started");
+            registry.rebind(bindingName, lobbyManager);
+            System.out.println("lobby server started");
         } catch (Exception e) {
             System.out.println("ERROR: Failed to register the server object.");
             e.printStackTrace();
         }
     }
 
-    @Override
-    public void test() throws RemoteException {
-        
-    }
+
 }

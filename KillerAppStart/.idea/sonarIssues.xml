@@ -58,6 +58,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/Main/Java/Classes/GameManager/GameManager.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/Main/Java/Classes/GameManager/Player.java">
           <value>
             <set />
@@ -69,6 +74,26 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/Main/Java/Classes/GameManager/Stone.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/Main/Java/Classes/LobbyManager/Lobby.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/Main/Java/Classes/LobbyManager/LobbyManager.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/Main/Java/Classes/LobbyManager/LobbyPlayer.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/Main/Java/Classes/LobbyManager/Player.java">
           <value>
             <set />
           </value>
@@ -138,7 +163,17 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/Main/Java/Enums/MessageType.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/Main/Java/Enums/Side.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/Main/Java/FontysPublisher/ILocalPropertyListener.java">
           <value>
             <set />
           </value>
@@ -163,12 +198,37 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/Main/Java/StartUp/ClientServer.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/Main/Java/StartUp/Connections/GameServerConnection.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/Main/Java/StartUp/Connections/LobbyServerConnection.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/Main/Java/StartUp/GameManager.java">
           <value>
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/Main/Java/StartUp/GameServer.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/Main/Java/StartUp/LobbyManager.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/Main/Java/StartUp/LobbyServer.java">
           <value>
             <set />
           </value>
@@ -203,6 +263,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/Main/Resources/lobbyView.fxml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/Main/Resources/loginView.fxml">
           <value>
             <set />
@@ -219,6 +284,16 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/Main/Test/DatabaseTest/PlayerTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../IntelliJProjects/New_(17-12-2017)/RMI_push/src/Main/Java/Classes/Game.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../IntelliJProjects/New_(17-12-2017)/RMI_push/src/Main/Java/Controllers/Controller.java">
           <value>
             <set />
           </value>

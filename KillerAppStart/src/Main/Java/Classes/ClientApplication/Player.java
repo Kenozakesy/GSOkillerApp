@@ -1,5 +1,6 @@
 package Classes.ClientApplication;
 
+import Classes.LobbyManager.LobbyPlayer;
 import Enums.Side;
 
 /**
@@ -47,6 +48,11 @@ public class Player {
     /**
      *  Methods
      */
+    public LobbyPlayer getLobbyPlayer()
+    {
+        LobbyPlayer player = new LobbyPlayer(uniqueId, name);
+        return player;
+    }
 
 
 }

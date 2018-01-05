@@ -1,6 +1,7 @@
 package Classes.Singletons;
 
 import Classes.ClientApplication.Player;
+import Classes.LobbyManager.LobbyPlayer;
 import Database.PlayerManager;
 
 /**
@@ -49,6 +50,8 @@ public class PlayerSingleton {
             return false;
         }
     }
+
+
 
 
 }
