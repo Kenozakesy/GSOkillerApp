@@ -1,10 +1,12 @@
 package Controllers;
 
+import Classes.ClientApplication.Player;
 import Classes.GameManager.Cell;
 import Classes.GameManager.Game;
 import Classes.GameManager.PlayerInGame;
 import Classes.Singletons.PlayerSingleton;
 import Enums.Side;
+import StartUp.Connections.GameServerConnection;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -14,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.awt.*;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
 /**
@@ -52,9 +55,16 @@ public class BoardController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //draw board here
-        game = new Game();
-        update();
+
+        //ook nog kijken naar de push techniek en dit ng testen
+        //get game from server
+        Player player = PlayerSingleton.getPlayer();
+        try {
+            game = GameServerConnection.getInstance().getGame(player);
+            update();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
 

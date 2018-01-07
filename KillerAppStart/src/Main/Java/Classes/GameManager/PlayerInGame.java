@@ -1,5 +1,6 @@
 package Classes.GameManager;
 
+import Classes.LobbyManager.LobbyPlayer;
 import Enums.Side;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -13,8 +14,9 @@ import java.util.ArrayList;
 public class PlayerInGame {
 
     /**
-     *  Fields
+     * Fields
      */
+    private static Side staticSide = Side.Black;
     private ArrayList<Stone> stones;
     private Game game;
 
@@ -22,16 +24,17 @@ public class PlayerInGame {
     private String name;
     private Side side;
 
-
-
     /**
-     *  Properties
+     * Properties
      */
-    public int getUniqueId() {return uniqueId;}
+    public int getUniqueId() {
+        return uniqueId;
+    }
 
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -39,6 +42,7 @@ public class PlayerInGame {
     public Side getSide() {
         return side;
     }
+
     public void setSide(Side side) {
         this.side = side;
     }
@@ -48,20 +52,31 @@ public class PlayerInGame {
     }
 
     /**
-     *  Constructor
+     * Constructor
      */
-    public PlayerInGame(String name, Side side, Game game) {
+    public PlayerInGame(int uniqueId, String name, Game game) {
         this.stones = new ArrayList<>();
+        this.uniqueId = uniqueId;
         this.game = game;
-
         this.name = name;
-        this.side = side;
+
+        this.side = staticSide;
+        if (staticSide == Side.Black) {
+            staticSide = Side.White;
+        } else {
+            staticSide = Side.Black;
+        }
 
         createStones();
     }
 
+    public PlayerInGame(int uniqueId, String name) {
+        this.uniqueId = uniqueId;
+        this.name = name;
+    }
+
     /**
-     *  Methods
+     * Methods
      */
     public void setSelectedStone(Stone stone) {
         for (Stone S : stones) {
@@ -129,8 +144,7 @@ public class PlayerInGame {
         }
     }
 
-    private void removeStone(Stone stone)
-    {
+    private void removeStone(Stone stone) {
         stones.remove(stone);
     }
 
@@ -138,8 +152,7 @@ public class PlayerInGame {
     public boolean calculate(Cell destination) {
         //gets current selected stone
         Stone stone = getStoneSelected();
-        if(stone == null)
-        {
+        if (stone == null) {
             return false;
         }
         //gets the cell the stone is at
@@ -165,10 +178,8 @@ public class PlayerInGame {
                 } else if (
                         (SL.getCoordinate().x == destination.getCoordinate().x - 2 || SL.getCoordinate().x == destination.getCoordinate().x + 2) &&
                                 (SL.getCoordinate().y == destination.getCoordinate().y - 2 || SL.getCoordinate().y == destination.getCoordinate().y + 2)
-                        )
-                {
-                    if(hitStoneCheck(SL, destination, stone, black))
-                    {
+                        ) {
+                    if (hitStoneCheck(SL, destination, stone, black)) {
                         return true;
                     }
                 }
@@ -186,13 +197,11 @@ public class PlayerInGame {
                     moveStone(stone, destination, SL);
 
                     return true;
-                }
-                else if ( //hit
+                } else if ( //hit
                         (SL.getCoordinate().x == destination.getCoordinate().x - 2 || SL.getCoordinate().x == destination.getCoordinate().x + 2) &&
                                 (SL.getCoordinate().y == destination.getCoordinate().y - 2 || SL.getCoordinate().y == destination.getCoordinate().y + 2)
                         ) {
-                    if(hitStoneCheck(SL, destination, stone, white))
-                    {
+                    if (hitStoneCheck(SL, destination, stone, white)) {
                         return true;
                     }
                 }
@@ -202,8 +211,7 @@ public class PlayerInGame {
         return false;
     }
 
-    private boolean hitStoneCheck(Cell SL, Cell destination, Stone stone,  Color color)
-    {
+    private boolean hitStoneCheck(Cell SL, Cell destination, Stone stone, Color color) {
         //hit
         int midX = (SL.getCoordinate().x + destination.getCoordinate().x) / 2;
         int midY = (SL.getCoordinate().y + destination.getCoordinate().y) / 2;
@@ -212,8 +220,8 @@ public class PlayerInGame {
             if (C.getCoordinate().equals(point) && C.getStone() != null) {
                 if (C.getStone().getColor() == color) {
                     Stone removable = C.getStone();
-                    hitStone(stone, removable, destination,SL);
-                    return  true;
+                    hitStone(stone, removable, destination, SL);
+                    return true;
                 }
             }
         }
@@ -221,25 +229,21 @@ public class PlayerInGame {
 
     }
 
-    private void moveStone(Stone stone, Cell destination, Cell SL)
-    {
+    private void moveStone(Stone stone, Cell destination, Cell SL) {
         stone.setCell(destination);
         destination.setStone(stone);
         SL.removeStone();
     }
 
-    private void hitStone(Stone stone,Stone removable, Cell destination, Cell SL)
-    {
+    private void hitStone(Stone stone, Stone removable, Cell destination, Cell SL) {
         stone.setCell(destination);
         destination.setStone(stone);
         SL.removeStone();
 
         removable.getCell().removeStone();
 
-        for (PlayerInGame P: game.getPlayers())
-        {
-            if(P != this)
-            {
+        for (PlayerInGame P : game.getPlayers()) {
+            if (P != this) {
                 P.removeStone(removable);
                 break;
             }
@@ -250,5 +254,28 @@ public class PlayerInGame {
         for (Stone S : stones) {
             S.draw(gc);
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof PlayerInGame)) {
+            return false;
+        }
+
+        PlayerInGame other = (PlayerInGame) obj;
+
+        if (!other.name.equals(name)) {
+            return false;
+        }
+        if (other.uniqueId != uniqueId) {
+            return false;
+        }
+        return true;
     }
 }

@@ -1,9 +1,12 @@
 package Classes.GameManager;
 
+import Classes.ClientApplication.Player;
+import Database.PlayerManager;
 import Enums.Side;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -12,69 +15,79 @@ import java.util.Random;
 public class Game {
 
     /**
-     *  Fields
+     * Fields
      */
     private static Random random = new Random();
 
     private int turn;
     private Board board;
-    private ArrayList<PlayerInGame> players;
+    private List<PlayerInGame> players;
     private String name;
 
     private PlayerInGame currentPlayerTurn;
     private PlayerInGame winner;
 
     /**
-     *  Properties
+     * Properties
      */
-    public String getName() {return name;}
+    public String getName() {
+        return name;
+    }
 
-    public int getTurn() {return turn;}
-    public void setTurn(int turn) {this.turn = turn;}
+    public int getTurn() {
+        return turn;
+    }
 
-    public Board getBoard() {return board;}
-    public void setBoard(Board board) {this.board = board;}
+    public void setTurn(int turn) {
+        this.turn = turn;
+    }
 
-    public PlayerInGame getCurrentPlayerTurn() {return currentPlayerTurn;}
+    public Board getBoard() {
+        return board;
+    }
 
-    public ArrayList<PlayerInGame> getPlayers() {return players;}
+    public void setBoard(Board board) {
+        this.board = board;
+    }
 
-    public PlayerInGame getWinner() {return winner;}
+    public PlayerInGame getCurrentPlayerTurn() {
+        return currentPlayerTurn;
+    }
+
+    public List<PlayerInGame> getPlayers() {
+        return players;
+    }
+
+    public PlayerInGame getWinner() {
+        return winner;
+    }
 
     /**
-     *  Constructor
+     * Constructor
      */
-    public Game()
-    {
+    public Game() {
         generateBoard();
-        addPlayers();
-        switchTurns();
         this.winner = null;
     }
 
-    public Game(String name)
-    {
+    public Game(String name) {
         this.name = name;
     }
 
 
     /**
-     *  Methods
+     * Methods
      */
-    public boolean checkGameWon()
-    {
+    public boolean checkGameWon() {
         PlayerInGame loser = null;
-        for (PlayerInGame P: players)
-        {
-            if(P.getStones().size() == 0)
-            {
+        for (PlayerInGame P : players) {
+            if (P.getStones().size() == 0) {
                 loser = P;
             }
         }
 
-        for (PlayerInGame P: players) {
-            if(P != loser && loser != null)
-            {
+        for (PlayerInGame P : players) {
+            if (P != loser && loser != null) {
                 this.winner = P;
                 return true;
             }
@@ -85,38 +98,34 @@ public class Game {
     }
 
     //for now only one player and computer AI
-    private void addPlayers()
-    {
+    public void addPlayers(List<Player> playerlist) {
+        //instanieert lijst
         players = new ArrayList<>();
 
-        PlayerInGame player = new PlayerInGame("player", Side.White, this);
-        PlayerInGame computer = new PlayerInGame("com", Side.Black, this);
+        for (Player p : playerlist) {
+            PlayerInGame newPlayer = new PlayerInGame(p.getUniqueId(), p.getName(), this);
+            players.add(newPlayer);
+        }
 
-        players.add(player);
-        players.add(computer);
+        switchTurns();
     }
 
-    private void generateBoard()
-    {
+    private void generateBoard() {
         this.board = new Board();
     }
 
-    public void switchTurns()
-    {
-        for (PlayerInGame P: players) {
-            if(P != currentPlayerTurn)
-            {
+    public void switchTurns() {
+        for (PlayerInGame P : players) {
+            if (P != currentPlayerTurn) {
                 currentPlayerTurn = P;
                 break;
             }
         }
     }
 
-    public void draw(GraphicsContext gc)
-    {
+    public void draw(GraphicsContext gc) {
         this.board.Draw(gc);
-        for (PlayerInGame P:this.players)
-        {
+        for (PlayerInGame P : this.players) {
             P.drawStones(gc);
         }
     }

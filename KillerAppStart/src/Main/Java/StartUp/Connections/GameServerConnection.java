@@ -1,6 +1,7 @@
 package StartUp.Connections;
 
 import Classes.ClientApplication.Player;
+import Classes.GameManager.Game;
 import FontysPublisher.IRemotePropertyListener;
 import Interfaces.IGameManager;
 import Interfaces.ILobbyManager;
@@ -8,6 +9,7 @@ import Interfaces.ILobbyManager;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.List;
 
 /**
  * Created by Gebruiker on 3-1-2018.
@@ -78,10 +80,15 @@ public class GameServerConnection implements IGameManager{
      *  Override methods
      */
     @Override
-    public void startGame(Player player) throws RemoteException {
-        gameManager.startGame(player);
+    public void startGame(List<Player> players) throws RemoteException {
+        gameManager.startGame(players);
     }
 
+    @Override
+    public Game getGame(Player player) throws RemoteException {
+        Game game = gameManager.getGame(player);
+        return game;
+    }
 
 
     @Override

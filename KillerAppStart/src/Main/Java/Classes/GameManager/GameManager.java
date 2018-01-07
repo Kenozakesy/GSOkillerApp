@@ -67,10 +67,27 @@ public class GameManager extends UnicastRemoteObject implements IGameManager {
      * Override Methods
      */
 
+    @Override
+    public void startGame(List<Player> players) throws RemoteException {
+        Game game = new Game();
+        game.addPlayers(players);
+        games.add(game);
+    }
 
     @Override
-    public void startGame(Player player) throws RemoteException {
+    public Game getGame(Player player) throws RemoteException {
 
+        PlayerInGame pig = new PlayerInGame(player.getUniqueId(), player.getName());
+        for (Game game : games) {
+            for (PlayerInGame PG: game.getPlayers()) {
+                if(pig.equals(PG))
+                {
+                    return game;
+                }
+            }
+        }
+
+        return null;
     }
 
 

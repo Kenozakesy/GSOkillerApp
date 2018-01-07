@@ -113,13 +113,22 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
     public void btnStartGame(Event e)
     {
         //hier moet aan gewerkt worden
-        //GameServerConnection.getInstance().startGame();
-
-        LobbyPlayer player = PlayerSingleton.getPlayer().getLobbyPlayer();
+        Player player = PlayerSingleton.getPlayer();
+        LobbyPlayer lobbyPlayer = PlayerSingleton.getPlayer().getLobbyPlayer();
         try {
-            LobbyServerConnection.getInstance().startGame(player);
+            List<LobbyPlayer> players = LobbyServerConnection.getInstance().startGame(lobbyPlayer);
+
+            List<Player> PL = new ArrayList<>();
+            for (LobbyPlayer lp :players) {
+                Player p = new Player(lp.getUniqueId(), lp.getName());
+                PL.add(p);
+            }
+
+            GameServerConnection.getInstance().startGame(PL);
+
         } catch (RemoteException e1) {
             e1.printStackTrace();
+            System.out.println("couldn't create a game");
         }
     }
 

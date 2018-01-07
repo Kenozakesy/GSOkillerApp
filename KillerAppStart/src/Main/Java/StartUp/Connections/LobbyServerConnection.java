@@ -116,8 +116,9 @@ public class LobbyServerConnection implements ILobbyManager {
     }
 
     @Override
-    public void startGame(LobbyPlayer player) throws RemoteException {
-        lobbyManager.startGame(player);
+    public List<LobbyPlayer> startGame(LobbyPlayer player) throws RemoteException {
+        List<LobbyPlayer> players = lobbyManager.startGame(player);
+        return players;
     }
 
     @Override

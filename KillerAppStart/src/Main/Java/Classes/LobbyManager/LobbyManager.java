@@ -163,7 +163,7 @@ public class LobbyManager extends UnicastRemoteObject implements ILobbyManager {
     }
 
     @Override
-    public synchronized void startGame(LobbyPlayer player) throws RemoteException {
+    public synchronized List<LobbyPlayer> startGame(LobbyPlayer player) throws RemoteException {
 
         List<LobbyPlayer> lobbyplayers = new ArrayList<>();
         //lijst verkrijgen
@@ -180,7 +180,7 @@ public class LobbyManager extends UnicastRemoteObject implements ILobbyManager {
         MessageType type = MessageType.startGame;
         //doorsturen
         publisher.inform("lobby", type, lobbyplayers);
-
+        return lobbyplayers;
     }
 
     //for push methods

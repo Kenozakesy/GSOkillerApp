@@ -3,10 +3,12 @@ package Classes.ClientApplication;
 import Classes.LobbyManager.LobbyPlayer;
 import Enums.Side;
 
+import java.io.Serializable;
+
 /**
  * Created by Gebruiker on 12-12-2017.
  */
-public class Player {
+public class Player implements Serializable{
 
     /**
      *  Fields
