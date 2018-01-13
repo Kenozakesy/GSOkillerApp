@@ -58,7 +58,6 @@ public class PlayerInGame implements Serializable {
         } else {
             staticSide = Side.Black;
         }
-
         createStones();
     }
 
@@ -167,19 +166,15 @@ public class PlayerInGame implements Serializable {
                         (sl.getCoordinate().x == destination.getCoordinate().x - 1 || sl.getCoordinate().x == destination.getCoordinate().x + 1) &&
                                 sl.getCoordinate().y == destination.getCoordinate().y + 1
                         ) {
-                    //move
-                    System.out.println("moved");
 
                     moveStone(stone, destination, sl);
 
                     return true;
                 } else if (
-                        (sl.getCoordinate().x == destination.getCoordinate().x - 2 || sl.getCoordinate().x == destination.getCoordinate().x + 2) &&
+                        ((sl.getCoordinate().x == destination.getCoordinate().x - 2 || sl.getCoordinate().x == destination.getCoordinate().x + 2) &&
                                 (sl.getCoordinate().y == destination.getCoordinate().y - 2 || sl.getCoordinate().y == destination.getCoordinate().y + 2)
-                        ) {
-                    if (hitStoneCheck(sl, destination, stone, black)) {
-                        return true;
-                    }
+                        ) && hitStoneCheck(sl, destination, stone, black)) {
+                    return true;
                 }
 
                 break;
@@ -189,19 +184,16 @@ public class PlayerInGame implements Serializable {
                         (sl.getCoordinate().x == destination.getCoordinate().x - 1 || sl.getCoordinate().x == destination.getCoordinate().x + 1) &&
                                 sl.getCoordinate().y == destination.getCoordinate().y - 1
                         ) {
-                    //move
-                    System.out.println("moved");
 
                     moveStone(stone, destination, sl);
 
                     return true;
                 } else if ( //hit
-                        (sl.getCoordinate().x == destination.getCoordinate().x - 2 || sl.getCoordinate().x == destination.getCoordinate().x + 2) &&
+                        ((sl.getCoordinate().x == destination.getCoordinate().x - 2 || sl.getCoordinate().x == destination.getCoordinate().x + 2) &&
                                 (sl.getCoordinate().y == destination.getCoordinate().y - 2 || sl.getCoordinate().y == destination.getCoordinate().y + 2)
-                        ) {
-                    if (hitStoneCheck(sl, destination, stone, white)) {
-                        return true;
-                    }
+                        ) && hitStoneCheck(sl, destination, stone, white)) {
+
+                    return true;
                 }
                 break;
         }

@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Gebruiker on 10-1-2018.
@@ -16,7 +17,7 @@ public class BoardTest {
     public void ConstructorTest() throws Exception
     {
         Board board = new Board();
-        ArrayList<Cell> cells = board.getCells();
+        List<Cell> cells = board.getCells();
         Assert.assertEquals(cells, board.getCells());
     }
 
@@ -24,7 +25,7 @@ public class BoardTest {
     public void setColorsTest() throws Exception
     {
         Board board = new Board();
-        ArrayList<Cell> cells = board.getCells();
+        List<Cell> cells = board.getCells();
 
         board.setColors();
 
