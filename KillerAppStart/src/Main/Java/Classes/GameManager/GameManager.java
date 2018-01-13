@@ -1,10 +1,6 @@
-package Classes.GameManager;
+package classes.gamemanager;
 
-import Classes.ClientApplication.Player;
-import Classes.LobbyManager.Lobby;
-import Classes.LobbyManager.LobbyManager;
-import Classes.LobbyManager.LobbyPlayer;
-import Classes.Singletons.PlayerSingleton;
+import classes.clientapplication.Player;
 import FontysPublisher.IRemotePropertyListener;
 import FontysPublisher.RemotePublisher;
 import Interfaces.IGameManager;
@@ -13,6 +9,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by Gebruiker on 2-1-2018.
@@ -25,7 +22,7 @@ public class GameManager extends UnicastRemoteObject implements IGameManager {
     private static GameManager instance;
     private List<Game> games;
 
-    public RemotePublisher publisher;
+    private RemotePublisher publisher;
 
     /**
      * Properties
@@ -41,9 +38,6 @@ public class GameManager extends UnicastRemoteObject implements IGameManager {
         return instance;
     }
 
-    public List<Game> getGames() {
-        return games;
-    }
 
     /**
      * Constructor
@@ -62,20 +56,22 @@ public class GameManager extends UnicastRemoteObject implements IGameManager {
         }
     }
 
-
     /**
      * Override Methods
      */
 
     @Override
-    public void startGame(List<Player> players) throws RemoteException {
+    public synchronized void startGame(List<Player> players) throws RemoteException {
         Game game = new Game();
         game.addPlayers(players);
         games.add(game);
+
+        //Hier voor het eerst game opslaan in database
+
     }
 
     @Override
-    public Game getGame(Player player) throws RemoteException {
+    public synchronized Game getGame(Player player) throws RemoteException {
 
         PlayerInGame pig = new PlayerInGame(player.getUniqueId(), player.getName());
         for (Game game : games) {
@@ -90,15 +86,39 @@ public class GameManager extends UnicastRemoteObject implements IGameManager {
         return null;
     }
 
-
     @Override
-    public void subscribeRemoteListener(IRemotePropertyListener listener, String property) throws RemoteException {
+    public synchronized void sendGame(Game game) throws RemoteException {
 
+        //hiet moet eigenlijk een aanpassing doorgestuurd worden
+        publisher.inform("game", null, game);
     }
 
     @Override
-    public void unsubscribeRemoteListener(IRemotePropertyListener listener, String property) throws RemoteException {
+    public void sendGameDatabase(Game game) throws RemoteException {
 
+        //hier sla je dingen in de database op
+
+
+
+
+        //hier nieuw turn aanmaken
+        game.switchTurns();
+        publisher.inform("game", null, game);
+
+        if(game.checkGameWon())
+        {
+            games.remove(game);
+        }
+    }
+
+    @Override
+    public synchronized void subscribeRemoteListener(IRemotePropertyListener listener, String property) throws RemoteException {
+        publisher.subscribeRemoteListener(listener, property);
+    }
+
+    @Override
+    public synchronized void unsubscribeRemoteListener(IRemotePropertyListener listener, String property) throws RemoteException {
+        publisher.unsubscribeRemoteListener(listener, property);
     }
 
     /**

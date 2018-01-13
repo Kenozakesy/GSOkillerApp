@@ -1,7 +1,6 @@
 package Database;
 
-import Classes.ClientApplication.Player;
-import Classes.GameManager.PlayerInGame;
+import classes.clientapplication.Player;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

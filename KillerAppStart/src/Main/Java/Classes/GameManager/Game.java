@@ -1,24 +1,20 @@
-package Classes.GameManager;
+package classes.gamemanager;
 
-import Classes.ClientApplication.Player;
-import Database.PlayerManager;
-import Enums.Side;
+import classes.clientapplication.Player;
 import javafx.scene.canvas.GraphicsContext;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by Gebruiker on 13-12-2017.
  */
-public class Game {
+public class Game implements Serializable{
 
     /**
      * Fields
      */
-    private static Random random = new Random();
-
     private int turn;
     private Board board;
     private List<PlayerInGame> players;
@@ -38,26 +34,17 @@ public class Game {
         return turn;
     }
 
-    public void setTurn(int turn) {
-        this.turn = turn;
-    }
-
     public Board getBoard() {
         return board;
     }
 
-    public void setBoard(Board board) {
-        this.board = board;
-    }
 
     public PlayerInGame getCurrentPlayerTurn() {
         return currentPlayerTurn;
     }
-
     public List<PlayerInGame> getPlayers() {
         return players;
     }
-
     public PlayerInGame getWinner() {
         return winner;
     }
@@ -68,6 +55,7 @@ public class Game {
     public Game() {
         generateBoard();
         this.winner = null;
+        this.turn = 0;
     }
 
     public Game(String name) {
@@ -78,6 +66,14 @@ public class Game {
     /**
      * Methods
      */
+    public void setColors()
+    {
+        board.setColors();
+        for (PlayerInGame p : players) {
+            p.setColors();
+        }
+    }
+
     public boolean checkGameWon() {
         PlayerInGame loser = null;
         for (PlayerInGame P : players) {
@@ -92,8 +88,6 @@ public class Game {
                 return true;
             }
         }
-
-        this.winner = null;
         return false;
     }
 
@@ -115,6 +109,7 @@ public class Game {
     }
 
     public void switchTurns() {
+        this.turn++;
         for (PlayerInGame P : players) {
             if (P != currentPlayerTurn) {
                 currentPlayerTurn = P;
@@ -124,7 +119,7 @@ public class Game {
     }
 
     public void draw(GraphicsContext gc) {
-        this.board.Draw(gc);
+        this.board.draw(gc);
         for (PlayerInGame P : this.players) {
             P.drawStones(gc);
         }

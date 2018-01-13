@@ -1,20 +1,21 @@
-package Classes.GameManager;
+package classes.gamemanager;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.io.Serializable;
+import java.util.*;
+import java.util.List;
 
 /**
  * Created by Gebruiker on 13-12-2017.
  */
-public class Board {
+public class Board implements Serializable {
 
     /**
      *  Fields
      */
-    private Color side;
     private ArrayList<Cell> cells;
     private int height = 8;
     private int width = 8;
@@ -22,12 +23,7 @@ public class Board {
     /**
      *  Properties
      */
-    public void setHeight(int height) {this.height = height;}
-    public void setWidth(int width) {this.width = width;}
-
-    public ArrayList<Cell> getCells() {return cells;}
-    public void setCells(ArrayList<Cell> cells) {this.cells = cells;}
-
+    public List<Cell> getCells() {return cells;}
 
     /**
      *  Constructor
@@ -41,6 +37,13 @@ public class Board {
     /**
      *  Methods
      */
+    public void setColors()
+    {
+        for (Cell c : cells) {
+           c.setColor();
+        }
+    }
+
     public void generateCells() {
         boolean checkColor = true;
         for (int i = 0; i < height; i++) {
@@ -73,7 +76,7 @@ public class Board {
         }
     }
 
-    public void Draw(GraphicsContext gc) {
+    public void draw(GraphicsContext gc) {
         for (Cell C : cells) {
             C.draw(gc);
         }

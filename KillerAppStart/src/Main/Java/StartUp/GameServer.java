@@ -1,8 +1,6 @@
 package StartUp;
 
-import Classes.GameManager.Game;
-import Classes.GameManager.GameManager;
-import Classes.LobbyManager.LobbyManager;
+import classes.gamemanager.GameManager;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;

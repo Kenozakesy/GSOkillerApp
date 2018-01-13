@@ -1,7 +1,6 @@
-package Classes.Singletons;
+package classes.Singletons;
 
-import Classes.ClientApplication.Player;
-import Classes.LobbyManager.LobbyPlayer;
+import classes.clientapplication.Player;
 import Database.PlayerManager;
 
 /**
@@ -10,48 +9,40 @@ import Database.PlayerManager;
 public class PlayerSingleton {
 
     /**
-     *  Fields
+     * Fields
      */
+    //private static Player instance = null;
     private static Player instance = new Player();
 
     /**
-     *  Properties
+     * Properties
      */
-    public static Player getPlayer()
-    {
-        if(instance == null)
-        {
+    public static Player getPlayer() {
+        if (instance == null) {
             instance = new Player();
         }
         return instance;
     }
 
     /**
-     *  Constructor
+     * Constructor
      */
     private PlayerSingleton() {
 
     }
 
-
     /**
-     *  Methods
+     * Methods
      */
-    public static boolean login(String username, String password)
-    {
+    public static boolean login(String username, String password) {
         Player player = PlayerManager.getPlayer(username, password);
-        if(player != null)
-        {
+        if (player != null) {
             instance = player;
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
-
-
 
 
 }

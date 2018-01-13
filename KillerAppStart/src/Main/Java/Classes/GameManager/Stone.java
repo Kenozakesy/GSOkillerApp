@@ -1,66 +1,63 @@
-package Classes.GameManager;
+package classes.gamemanager;
 
+import Enums.ColorStatic;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 import java.awt.*;
+import java.io.Serializable;
 
 /**
  * Created by Gebruiker on 13-12-2017.
  */
-public class Stone {
+public class Stone implements Serializable {
 
     /**
-     *  Fields
+     * Fields
      */
     private Cell cell;
 
     private boolean dam;
     private int width;
     private int height;
-    private Color color;
-    private final Color selectedColor;
-    private final Color originalColor;
+    private transient Color color;
+    private transient Color selectedColor;
+    private transient Color originalColor;
     private Point coordinate;
     private Point coordinateNext;
     private Point anchor;
 
+    private ColorStatic colorStatic;
+    private boolean selected;
+
     /**
-     *  Properties
+     * Properties
      */
-    public Cell getCell() {return cell;}
+    public Cell getCell() {
+        return cell;
+    }
     public void setCell(Cell cell) {
         this.cell = cell;
         this.coordinate = cell.getCoordinate();
         this.anchor.x = cell.getAnchor().x + 10;
         this.anchor.y = cell.getAnchor().y + 10;
     }
+    public Color getColor() {
+        return color;
+    }
 
-    public boolean isDam() {return dam;}
-    public void setDam(boolean dam) {this.dam = dam;}
-
-    public int getWidth() {return width;}
-    public void setWidth(int width) {this.width = width;}
-
-    public int getHeight() {return height;}
-    public void setHeight(int height) {this.height = height;}
-
-    public Color getColor() {return color;}
-    public void setColor(Color color) {this.color = color;}
-
-    public Point getCoordinate() {return coordinate;}
-    public void setCoordinate(Point coordinate) {this.coordinate = coordinate;}
-
-    public Point getCoordinateNext() {return coordinateNext;}
-    public void setCoordinateNext(Point coordinateNext) {this.coordinateNext = coordinateNext;}
-
-    public Point getAnchor() {return anchor;}
-    public void setAnchor(Point anchor) {this.anchor = anchor;}
+    public Point getCoordinate() {
+        return coordinate;
+    }
+    public Point getAnchor() {
+        return anchor;
+    }
 
     /**
-     *  Constructor
+     * Constructor
      */
     public Stone(Color color, Point anchor, Point coordinate) {
+        this.selected = false;
         this.dam = false;
         this.height = 50;
         this.width = 50;
@@ -70,53 +67,58 @@ public class Stone {
         this.coordinate = coordinate;
         this.coordinateNext = null;
         this.anchor = anchor;
+
+        if (color == Color.BLACK) {
+            colorStatic = ColorStatic.Black;
+        } else {
+            colorStatic = ColorStatic.White;
+        }
     }
 
-
     /**
-     *  Methods
+     * Methods
      */
-    public void move(Cell nextLocation){
+    public void setColor() {
+        this.selectedColor = Color.RED;
 
+        if (colorStatic == ColorStatic.Black) {
+            color = Color.BLACK;
+            this.originalColor = Color.BLACK;
+        } else if (colorStatic == ColorStatic.White) {
+            color = Color.WHITE;
+            this.originalColor = Color.WHITE;
+        }
+
+        if (selected) {
+            this.color = this.selectedColor;
+        } else {
+            this.color = this.originalColor;
+        }
     }
 
     public Stone checkSelected() {
-        if(color == selectedColor)
-        {
+        if (color == selectedColor) {
             return this;
         }
         return null;
     }
 
-    public void setDeselected()
-    {
+    public void setDeselected() {
         color = originalColor;
+        selected = false;
     }
 
-    public void setSelected(){
-        if(color == originalColor)
-        {
+    public void setSelected() {
+        if (color == originalColor) {
             color = selectedColor;
-        }
-        else
-        {
+            selected = true;
+        } else {
             color = originalColor;
+            selected = false;
         }
     }
 
-    public void upgradeDam()
-    {
-        this.dam = true;
-        // plus a visual adjustment
-    }
-
-    public void move()
-    {
-
-    }
-
-    public void draw(GraphicsContext gc)
-    {
+    public void draw(GraphicsContext gc) {
         gc.setFill(color);
         gc.setStroke(Color.GRAY);
         gc.setLineWidth(3);

@@ -1,18 +1,20 @@
-package Classes.GameManager;
+package classes.gamemanager;
 
+import Enums.Side;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.*;
+
+import javafx.scene.paint.Color;
 
 import java.awt.*;
-import java.awt.Color;
+import java.io.Serializable;
 
 /**
  * Created by Gebruiker on 13-12-2017.
  */
-public class Cell {
+public class Cell implements Serializable {
 
     /**
-     *  Fields
+     * Fields
      */
     private Stone stone;
 
@@ -20,52 +22,68 @@ public class Cell {
     private int height;
     private Point coordinate;
     private Point anchor;
-    private javafx.scene.paint.Color color;
+
+    private transient Color color;
+    private Side colorStatic;
 
     /**
-     *  Properties
+     * Properties
      */
-    public int getWidth() {return width;}
-    public void setWidth(int width) {this.width = width;}
-
-    public int getHeight() {return height;}
-    public void setHeight(int height) {this.height = height;}
-
-    public Point getCoordinate() {return coordinate;}
-    public void setCoordinate(Point coordinate) {this.coordinate = coordinate;}
-
-    public Point getAnchor() { return anchor;}
-    public void setAnchor(Point anchor) {this.anchor = anchor;}
-
-    public javafx.scene.paint.Color getColor() {return color;}
-    public void setColor(javafx.scene.paint.Color color) {this.color = color;}
-
-    public Stone getStone() {return stone;}
-    public void setStone(Stone stone) {this.stone = stone;}
+    public int getWidth() {
+        return width;
+    }
+    public int getHeight() {
+        return height;
+    }
+    public Point getCoordinate() {
+        return coordinate;
+    }
+    public Point getAnchor() {
+        return anchor;
+    }
+    public Color getColor() {
+        return color;
+    }
+    public Stone getStone() {
+        return stone;
+    }
+    public void setStone(Stone stone) {
+        this.stone = stone;
+    }
 
     /**
-     *  Constructor
+     * Constructor
      */
-    public Cell(javafx.scene.paint.Color color, Point coordinate, Point anchor)
-    {
+    public Cell(Color color, Point coordinate, Point anchor) {
         this.width = 70;
         this.height = 70;
         this.color = color;
         this.coordinate = coordinate;
         this.anchor = anchor;
+        if (color == Color.BLACK) {
+            colorStatic = Side.Black;
+        } else {
+            colorStatic = Side.White;
+        }
     }
 
     /**
-     *  Methods
+     * Methods
      */
+    public void setColor() {
+        if (colorStatic == Side.Black) {
+            color = Color.BLACK;
+        } else {
+            color = Color.WHITE;
+        }
+    }
+
     //Methods
-    public void removeStone()
-    {
+    public void removeStone() {
         this.stone = null;
     }
 
-    public void draw(GraphicsContext gc)
-    {
+    public void draw(GraphicsContext gc) {
         gc.setFill(color);
         gc.fillRect(anchor.getX(), anchor.getY(), width, height);
     }

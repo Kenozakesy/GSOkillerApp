@@ -1,16 +1,10 @@
 package StartUp;
 
-import Classes.ClientApplication.Player;
-import Classes.LobbyManager.LobbyPlayer;
-import Classes.Singletons.PlayerSingleton;
-import StartUp.Connections.LobbyServerConnection;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.rmi.RemoteException;
 
 public class ClientServer extends Application {
 

@@ -1,7 +1,6 @@
-package Classes.LobbyManager;
+package classes.LobbyManager;
 
-import Classes.ClientApplication.Player;
-import Classes.Singletons.PlayerSingleton;
+import classes.Singletons.PlayerSingleton;
 import Enums.MessageType;
 import FontysPublisher.IRemotePropertyListener;
 import FontysPublisher.RemotePublisher;
@@ -140,7 +139,7 @@ public class LobbyManager extends UnicastRemoteObject implements ILobbyManager {
     }
 
     @Override
-    public synchronized void RemovePlayerExistence(LobbyPlayer player) throws RemoteException {
+    public synchronized void removePlayerExistence(LobbyPlayer player) throws RemoteException {
 
         LobbyPlayer playerData = null;
         Lobby lobbyData = null;
@@ -163,7 +162,7 @@ public class LobbyManager extends UnicastRemoteObject implements ILobbyManager {
     }
 
     @Override
-    public synchronized List<LobbyPlayer> startGame(LobbyPlayer player) throws RemoteException {
+    public synchronized void startGame(LobbyPlayer player) throws RemoteException {
 
         List<LobbyPlayer> lobbyplayers = new ArrayList<>();
         //lijst verkrijgen
@@ -180,7 +179,25 @@ public class LobbyManager extends UnicastRemoteObject implements ILobbyManager {
         MessageType type = MessageType.startGame;
         //doorsturen
         publisher.inform("lobby", type, lobbyplayers);
-        return lobbyplayers;
+    }
+
+    @Override
+    public List<LobbyPlayer> getPlayerList(LobbyPlayer player) throws RemoteException {
+
+        List<LobbyPlayer> lobbyplayers = new ArrayList<>();
+
+        //lijst verkrijgen
+        for (Lobby l : lobbys) {
+            for (LobbyPlayer p : l.getLobbyPlayers()) {
+                if(p.equals(player))
+                {
+                    lobbyplayers.addAll(l.getLobbyPlayers());
+                    break;
+                }
+            }
+        }
+
+        return  lobbyplayers;
     }
 
     //for push methods
@@ -201,6 +218,7 @@ public class LobbyManager extends UnicastRemoteObject implements ILobbyManager {
         lobbys.clear();
         lobbys.addAll(lobbyList);
     }
+
 
     public boolean checkStartAble()
     {

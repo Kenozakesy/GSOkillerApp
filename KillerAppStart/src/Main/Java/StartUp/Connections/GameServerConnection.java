@@ -1,10 +1,9 @@
 package StartUp.Connections;
 
-import Classes.ClientApplication.Player;
-import Classes.GameManager.Game;
+import classes.clientapplication.Player;
+import classes.gamemanager.Game;
 import FontysPublisher.IRemotePropertyListener;
 import Interfaces.IGameManager;
-import Interfaces.ILobbyManager;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -25,7 +24,6 @@ public class GameServerConnection implements IGameManager{
 
     private Registry registry = null;
     private IGameManager gameManager;
-
 
     /**
      *  Properties
@@ -88,6 +86,16 @@ public class GameServerConnection implements IGameManager{
     public Game getGame(Player player) throws RemoteException {
         Game game = gameManager.getGame(player);
         return game;
+    }
+
+    @Override
+    public void sendGame(Game game) throws RemoteException {
+        gameManager.sendGame(game);
+    }
+
+    @Override
+    public void sendGameDatabase(Game game) throws RemoteException {
+        gameManager.sendGameDatabase(game);
     }
 
 

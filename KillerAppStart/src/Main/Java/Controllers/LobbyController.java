@@ -1,10 +1,10 @@
 package Controllers;
 
-import Classes.ClientApplication.Player;
-import Classes.LobbyManager.Lobby;
-import Classes.LobbyManager.LobbyManager;
-import Classes.LobbyManager.LobbyPlayer;
-import Classes.Singletons.PlayerSingleton;
+import classes.clientapplication.Player;
+import classes.LobbyManager.Lobby;
+import classes.LobbyManager.LobbyManager;
+import classes.LobbyManager.LobbyPlayer;
+import classes.Singletons.PlayerSingleton;
 import Enums.MessageType;
 import FontysPublisher.IRemotePropertyListener;
 import Interfaces.ILobbyManager;
@@ -101,6 +101,9 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
             stage2.setScene(new Scene(root1));
             stage2.show();
             try {
+                Player player = PlayerSingleton.getPlayer();
+                LobbyPlayer LP = player.getLobbyPlayer();
+                LobbyServerConnection.getInstance().removePlayerExistence(LP);
                 unsubscribe();
             } catch (RemoteException e1) {
                 e1.printStackTrace();
@@ -113,18 +116,27 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
     public void btnStartGame(Event e)
     {
         //hier moet aan gewerkt worden
-        Player player = PlayerSingleton.getPlayer();
+
         LobbyPlayer lobbyPlayer = PlayerSingleton.getPlayer().getLobbyPlayer();
         try {
-            List<LobbyPlayer> players = LobbyServerConnection.getInstance().startGame(lobbyPlayer);
+            List<LobbyPlayer> lobbyPlayerList = LobbyServerConnection.getInstance().getPlayerList(lobbyPlayer);
 
             List<Player> PL = new ArrayList<>();
-            for (LobbyPlayer lp :players) {
+
+            for (LobbyPlayer lp :lobbyPlayerList) {
                 Player p = new Player(lp.getUniqueId(), lp.getName());
                 PL.add(p);
             }
 
+            //game gets starter on server
             GameServerConnection.getInstance().startGame(PL);
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+            //tartGamevanuit lobby
+            LobbyServerConnection.getInstance().startGame(lobbyPlayer);
 
         } catch (RemoteException e1) {
             e1.printStackTrace();
@@ -233,7 +245,6 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
         }
         else {
             List<Lobby> lobbys = (ArrayList<Lobby>) evt.getNewValue();
-            System.out.println(lobbys.size());
             LobbyManager.getInstance().addLobbys(lobbys);
             update();
         }
@@ -258,6 +269,7 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
             }
             checkGameStartable();
         });
+
 
 
     }

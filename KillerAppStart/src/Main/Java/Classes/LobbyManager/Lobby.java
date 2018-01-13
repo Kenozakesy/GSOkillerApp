@@ -1,7 +1,7 @@
-package Classes.LobbyManager;
+package classes.LobbyManager;
 
-import Classes.ClientApplication.Player;
-import Classes.Singletons.PlayerSingleton;
+import classes.clientapplication.Player;
+import classes.Singletons.PlayerSingleton;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -101,6 +101,11 @@ public class Lobby implements Serializable {
         }
 
         return "ID " + uniqueId + ", Lobby owner: " + name + ", Players: "+ lobbyPlayers.size() + "/2" + check;
+    }
+
+    public static void setID()
+    {
+        uniqueIdGenerator = 0;
     }
 
     @Override

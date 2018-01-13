@@ -1,7 +1,6 @@
-package DatabaseTest;
+package ClassesTest.DatabaseTest;
 
-import Classes.ClientApplication.Player;
-import Classes.GameManager.PlayerInGame;
+import classes.clientapplication.Player;
 import Database.PlayerManager;
 import org.junit.Assert;
 import org.junit.Test;
@@ -15,7 +14,7 @@ public class PlayerTest {
     public void DatabaseConnectionTest() throws Exception
     {
         String username = "koen";
-        String password = "koen1234";
+        String password = "koen123";
 
         Player player = PlayerManager.getPlayer(username, password);
         Assert.assertTrue(player != null);

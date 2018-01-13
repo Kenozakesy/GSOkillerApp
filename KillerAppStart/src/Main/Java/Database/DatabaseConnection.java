@@ -32,22 +32,6 @@ public class DatabaseConnection
         }
     }
 
-    public Statement getStatement() {
-        return statement;
-    }
-
-    public void setStatement(Statement statement) {
-        this.statement = statement;
-    }
-
-    public ResultSet getResult() {
-        return result;
-    }
-
-    public void setResult(ResultSet result) {
-        this.result = result;
-    }
-
     private void closeStatement(){
         if (statement != null) {
             try {

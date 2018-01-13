@@ -1,17 +1,17 @@
-package Classes.GameManager;
+package classes.gamemanager;
 
-import Classes.LobbyManager.LobbyPlayer;
 import Enums.Side;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Gebruiker on 13-12-2017.
  */
-public class PlayerInGame {
+public class PlayerInGame implements Serializable {
 
     /**
      * Fields
@@ -37,14 +37,6 @@ public class PlayerInGame {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Side getSide() {
-        return side;
-    }
-
-    public void setSide(Side side) {
-        this.side = side;
     }
 
     public ArrayList<Stone> getStones() {
@@ -78,6 +70,12 @@ public class PlayerInGame {
     /**
      * Methods
      */
+    public void setColors() {
+        for (Stone s : stones) {
+            s.setColor();
+        }
+    }
+
     public void setSelectedStone(Stone stone) {
         for (Stone S : stones) {
             if (S != stone) {
@@ -156,7 +154,7 @@ public class PlayerInGame {
             return false;
         }
         //gets the cell the stone is at
-        Cell SL = stone.getCell();
+        Cell sl = stone.getCell();
 
         if (destination.getStone() != null) {
             return false;
@@ -166,20 +164,20 @@ public class PlayerInGame {
             case White:
                 Color black = Color.BLACK;
                 if ( //move
-                        (SL.getCoordinate().x == destination.getCoordinate().x - 1 || SL.getCoordinate().x == destination.getCoordinate().x + 1) &&
-                                SL.getCoordinate().y == destination.getCoordinate().y + 1
+                        (sl.getCoordinate().x == destination.getCoordinate().x - 1 || sl.getCoordinate().x == destination.getCoordinate().x + 1) &&
+                                sl.getCoordinate().y == destination.getCoordinate().y + 1
                         ) {
                     //move
                     System.out.println("moved");
 
-                    moveStone(stone, destination, SL);
+                    moveStone(stone, destination, sl);
 
                     return true;
                 } else if (
-                        (SL.getCoordinate().x == destination.getCoordinate().x - 2 || SL.getCoordinate().x == destination.getCoordinate().x + 2) &&
-                                (SL.getCoordinate().y == destination.getCoordinate().y - 2 || SL.getCoordinate().y == destination.getCoordinate().y + 2)
+                        (sl.getCoordinate().x == destination.getCoordinate().x - 2 || sl.getCoordinate().x == destination.getCoordinate().x + 2) &&
+                                (sl.getCoordinate().y == destination.getCoordinate().y - 2 || sl.getCoordinate().y == destination.getCoordinate().y + 2)
                         ) {
-                    if (hitStoneCheck(SL, destination, stone, black)) {
+                    if (hitStoneCheck(sl, destination, stone, black)) {
                         return true;
                     }
                 }
@@ -188,20 +186,20 @@ public class PlayerInGame {
             case Black:
                 Color white = Color.WHITE;
                 if ( //move
-                        (SL.getCoordinate().x == destination.getCoordinate().x - 1 || SL.getCoordinate().x == destination.getCoordinate().x + 1) &&
-                                SL.getCoordinate().y == destination.getCoordinate().y - 1
+                        (sl.getCoordinate().x == destination.getCoordinate().x - 1 || sl.getCoordinate().x == destination.getCoordinate().x + 1) &&
+                                sl.getCoordinate().y == destination.getCoordinate().y - 1
                         ) {
                     //move
                     System.out.println("moved");
 
-                    moveStone(stone, destination, SL);
+                    moveStone(stone, destination, sl);
 
                     return true;
                 } else if ( //hit
-                        (SL.getCoordinate().x == destination.getCoordinate().x - 2 || SL.getCoordinate().x == destination.getCoordinate().x + 2) &&
-                                (SL.getCoordinate().y == destination.getCoordinate().y - 2 || SL.getCoordinate().y == destination.getCoordinate().y + 2)
+                        (sl.getCoordinate().x == destination.getCoordinate().x - 2 || sl.getCoordinate().x == destination.getCoordinate().x + 2) &&
+                                (sl.getCoordinate().y == destination.getCoordinate().y - 2 || sl.getCoordinate().y == destination.getCoordinate().y + 2)
                         ) {
-                    if (hitStoneCheck(SL, destination, stone, white)) {
+                    if (hitStoneCheck(sl, destination, stone, white)) {
                         return true;
                     }
                 }
@@ -217,12 +215,11 @@ public class PlayerInGame {
         int midY = (SL.getCoordinate().y + destination.getCoordinate().y) / 2;
         Point point = new Point(midX, midY);
         for (Cell C : game.getBoard().getCells()) {
-            if (C.getCoordinate().equals(point) && C.getStone() != null) {
-                if (C.getStone().getColor() == color) {
-                    Stone removable = C.getStone();
-                    hitStone(stone, removable, destination, SL);
-                    return true;
-                }
+            if (C.getCoordinate().equals(point) && C.getStone() != null && C.getStone().getColor() == color) {
+                Stone removable = C.getStone();
+                hitStone(stone, removable, destination, SL);
+                return true;
+
             }
         }
         return false;
@@ -235,10 +232,10 @@ public class PlayerInGame {
         SL.removeStone();
     }
 
-    private void hitStone(Stone stone, Stone removable, Cell destination, Cell SL) {
+    private void hitStone(Stone stone, Stone removable, Cell destination, Cell sl) {
         stone.setCell(destination);
         destination.setStone(stone);
-        SL.removeStone();
+        sl.removeStone();
 
         removable.getCell().removeStone();
 

@@ -1,4 +1,4 @@
-package Classes.LobbyManager;
+package classes.LobbyManager;
 
 import Enums.Side;
 
@@ -26,16 +26,9 @@ public class LobbyPlayer implements Serializable{
     public void setHost(boolean host) {this.host = host;}
 
     public int getUniqueId() {return uniqueId;}
-    public void setUniqueId(int uniqueCode) {uniqueId = uniqueCode;}
 
     public String getName() {return name;}
     public void setName(String name) {this.name = name;}
-
-    public String getPassword() {return password;}
-    public void setPassword(String password) {this.password = password;}
-
-    public Side getSide() {return side;}
-    public void setSide(Side side) {this.side = side;}
 
     /**
      *  Constructor

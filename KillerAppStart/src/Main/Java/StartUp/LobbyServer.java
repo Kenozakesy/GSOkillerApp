@@ -1,9 +1,7 @@
 package StartUp;
 
-import Classes.LobbyManager.LobbyManager;
-import Interfaces.ILobbyManager;
+import classes.LobbyManager.LobbyManager;
 
-import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 

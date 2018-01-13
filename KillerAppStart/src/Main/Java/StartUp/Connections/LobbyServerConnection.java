@@ -1,7 +1,7 @@
 package StartUp.Connections;
 
-import Classes.LobbyManager.Lobby;
-import Classes.LobbyManager.LobbyPlayer;
+import classes.LobbyManager.Lobby;
+import classes.LobbyManager.LobbyPlayer;
 import FontysPublisher.IRemotePropertyListener;
 import Interfaces.ILobbyManager;
 
@@ -64,7 +64,6 @@ public class LobbyServerConnection implements ILobbyManager {
             e.printStackTrace();
         }
     }
-
     public void disconnect() {
         try {
             lobbyManager = null;
@@ -74,9 +73,6 @@ public class LobbyServerConnection implements ILobbyManager {
             e.printStackTrace();
         }
     }
-
-
-
 
 
     @Override
@@ -111,14 +107,18 @@ public class LobbyServerConnection implements ILobbyManager {
     }
 
     @Override
-    public void RemovePlayerExistence(LobbyPlayer player) throws RemoteException {
-        lobbyManager.RemovePlayerExistence(player);
+    public void removePlayerExistence(LobbyPlayer player) throws RemoteException {
+        lobbyManager.removePlayerExistence(player);
     }
 
     @Override
-    public List<LobbyPlayer> startGame(LobbyPlayer player) throws RemoteException {
-        List<LobbyPlayer> players = lobbyManager.startGame(player);
-        return players;
+    public void startGame(LobbyPlayer player) throws RemoteException {
+        lobbyManager.startGame(player);
+    }
+
+    @Override
+    public List<LobbyPlayer> getPlayerList(LobbyPlayer player) throws RemoteException {
+        return lobbyManager.getPlayerList(player);
     }
 
     @Override

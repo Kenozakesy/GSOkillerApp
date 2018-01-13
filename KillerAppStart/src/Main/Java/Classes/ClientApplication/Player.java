@@ -1,8 +1,6 @@
-package Classes.ClientApplication;
+package classes.clientapplication;
 
-import Classes.LobbyManager.LobbyPlayer;
-import Enums.Side;
-
+import classes.LobbyManager.LobbyPlayer;
 import java.io.Serializable;
 
 /**
@@ -15,23 +13,13 @@ public class Player implements Serializable{
      */
     private int uniqueId;
     private String name;
-    private String password;
-    private Side side;
 
     /**
      *  Properties
      */
     public int getUniqueId() {return uniqueId;}
-    public void setUniqueId(int uniqueCode) {uniqueId = uniqueCode;}
 
     public String getName() {return name;}
-    public void setName(String name) {this.name = name;}
-
-    public String getPassword() {return password;}
-    public void setPassword(String password) {this.password = password;}
-
-    public Side getSide() {return side;}
-    public void setSide(Side side) {this.side = side;}
 
     /**
      *  Constructor
@@ -52,8 +40,7 @@ public class Player implements Serializable{
      */
     public LobbyPlayer getLobbyPlayer()
     {
-        LobbyPlayer player = new LobbyPlayer(uniqueId, name);
-        return player;
+        return new LobbyPlayer(uniqueId, name);
     }
 
 

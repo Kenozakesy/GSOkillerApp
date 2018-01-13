@@ -1,8 +1,7 @@
 package Interfaces;
 
-import Classes.ClientApplication.Player;
-import Classes.LobbyManager.Lobby;
-import Classes.LobbyManager.LobbyPlayer;
+import classes.LobbyManager.Lobby;
+import classes.LobbyManager.LobbyPlayer;
 import FontysPublisher.IRemotePublisherForListener;
 
 import java.rmi.Remote;
@@ -17,6 +16,7 @@ public interface ILobbyManager extends Remote, IRemotePublisherForListener{
     boolean createLobby(LobbyPlayer lobbyPlayer) throws RemoteException;
     boolean joinLobby(LobbyPlayer lobbyPlayer, int LobbyID) throws RemoteException;
     List<Lobby> getAllLobbys() throws  RemoteException;
-    void RemovePlayerExistence(LobbyPlayer player) throws  RemoteException;
-    List<LobbyPlayer> startGame(LobbyPlayer player) throws  RemoteException;
+    void removePlayerExistence(LobbyPlayer player) throws  RemoteException;
+    void startGame(LobbyPlayer player) throws  RemoteException;
+    List<LobbyPlayer> getPlayerList(LobbyPlayer player) throws  RemoteException;
 }

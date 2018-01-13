@@ -1,4 +1,4 @@
-package DatabaseTest;
+package ClassesTest.DatabaseTest;
 
 import Database.DatabaseConnection;
 import org.junit.Assert;
