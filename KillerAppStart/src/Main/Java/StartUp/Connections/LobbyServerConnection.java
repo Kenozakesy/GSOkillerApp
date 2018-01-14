@@ -1,14 +1,15 @@
-package StartUp.Connections;
+package startup.connections;
 
-import classes.LobbyManager.Lobby;
-import classes.LobbyManager.LobbyPlayer;
+import classes.lobbymanager.Lobby;
+import classes.lobbymanager.LobbyPlayer;
 import FontysPublisher.IRemotePropertyListener;
-import Interfaces.ILobbyManager;
+import interfaces.ILobbyManager;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by Gebruiker on 29-12-2017.
@@ -16,13 +17,14 @@ import java.util.List;
 public class LobbyServerConnection implements ILobbyManager {
 
     //singleton value
+    private static Logger log = Logger.getLogger("Warning!");
     private static LobbyServerConnection data;
 
-    private String ipAddress = "127.0.0.1";
+    private String ipAddress = "localhost";
     private String bindingName = "lobbyServer";
     private int portNumber = 1099;
 
-    private Registry registry = null;
+
     private ILobbyManager lobbyManager;
 
 
@@ -36,7 +38,7 @@ public class LobbyServerConnection implements ILobbyManager {
             try {
                 data = new LobbyServerConnection();
             } catch (RemoteException e) {
-                e.printStackTrace();
+                log.warning(e.toString());
             }
         }
         return data;
@@ -56,12 +58,13 @@ public class LobbyServerConnection implements ILobbyManager {
      */
     public void connect() {
         try {
+            Registry registry;
             registry = LocateRegistry.getRegistry(ipAddress, portNumber);
             lobbyManager = (ILobbyManager) registry.lookup(bindingName);
 
-            System.out.println("Connected to LobbyServer");
+            log.warning("Connected to LobbyServer");
         } catch (Exception e) {
-            e.printStackTrace();
+            log.warning(e.toString());
         }
     }
     public void disconnect() {
@@ -70,7 +73,7 @@ public class LobbyServerConnection implements ILobbyManager {
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            log.warning(e.toString());
         }
     }
 
@@ -78,32 +81,27 @@ public class LobbyServerConnection implements ILobbyManager {
     @Override
     public boolean createLobby(LobbyPlayer lobbyPlayer) throws RemoteException {
 
+        boolean check = false;
         if(lobbyManager.createLobby(lobbyPlayer))
         {
-            return true;
+            check = true;
         }
-        else
-        {
-            return false;
-        }
+        return check;
     }
 
     @Override
     public boolean joinLobby(LobbyPlayer lobbyPlayer, int lobbyID) throws RemoteException {
+        boolean check = false;
         if(lobbyManager.joinLobby(lobbyPlayer, lobbyID))
         {
-            return true;
+            check = true;
         }
-        else
-        {
-            return false;
-        }
+        return check;
     }
 
     @Override
     public List<Lobby> getAllLobbys() throws RemoteException {
-        List<Lobby> lobbyList = lobbyManager.getAllLobbys();
-        return lobbyList;
+        return lobbyManager.getAllLobbys();
     }
 
     @Override
@@ -123,9 +121,11 @@ public class LobbyServerConnection implements ILobbyManager {
 
     @Override
     public void subscribeRemoteListener(IRemotePropertyListener listener, String property) throws RemoteException {
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void unsubscribeRemoteListener(IRemotePropertyListener listener, String property) throws RemoteException {
+        throw new UnsupportedOperationException();
     }
 }

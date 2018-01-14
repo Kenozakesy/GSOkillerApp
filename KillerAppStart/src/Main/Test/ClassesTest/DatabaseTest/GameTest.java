@@ -1,7 +1,7 @@
 package ClassesTest.DatabaseTest;
 
 import classes.gamemanager.Game;
-import Database.DataGameManager;
+import database.DataGameManager;
 import org.junit.Assert;
 import org.junit.Test;
 

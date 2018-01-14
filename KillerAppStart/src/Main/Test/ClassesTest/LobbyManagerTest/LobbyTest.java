@@ -2,8 +2,8 @@ package ClassesTest.LobbyManagerTest;
 
 import classes.clientapplication.Player;
 import classes.gamemanager.Game;
-import classes.LobbyManager.Lobby;
-import classes.LobbyManager.LobbyPlayer;
+import classes.lobbymanager.Lobby;
+import classes.lobbymanager.LobbyPlayer;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,12 +34,12 @@ public class LobbyTest {
 
         Assert.assertEquals(lobby.getLobbyPlayers().size(), 0);
 
-        LobbyPlayer LP2 = lobby.CheckPlayerInLobby(LP);
+        LobbyPlayer LP2 = lobby.checkPlayerInLobby(LP);
         Assert.assertEquals(null, LP2);
 
 
         lobby.addPlayer(LP);
-        LobbyPlayer LP3 = lobby.CheckPlayerInLobby(LP);
+        LobbyPlayer LP3 = lobby.checkPlayerInLobby(LP);
         Assert.assertEquals(LP, LP3);
 
     }

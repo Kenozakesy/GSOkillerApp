@@ -3,7 +3,7 @@ package classes.gamemanager;
 import classes.clientapplication.Player;
 import FontysPublisher.IRemotePropertyListener;
 import FontysPublisher.RemotePublisher;
-import Interfaces.IGameManager;
+import interfaces.IGameManager;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -19,6 +19,7 @@ public class GameManager extends UnicastRemoteObject implements IGameManager {
     /**
      * Fields
      */
+    private static transient Logger log = Logger.getLogger("warning");
     private static GameManager instance;
     private List<Game> games;
 
@@ -32,7 +33,7 @@ public class GameManager extends UnicastRemoteObject implements IGameManager {
             try {
                 instance = new GameManager();
             } catch (RemoteException e) {
-                e.printStackTrace();
+                log.warning(e.toString());
             }
         }
         return instance;
@@ -52,7 +53,7 @@ public class GameManager extends UnicastRemoteObject implements IGameManager {
         try {
             publisher = new RemotePublisher(properties);
         } catch (RemoteException e) {
-            e.printStackTrace();
+            log.warning(e.toString());
         }
     }
 

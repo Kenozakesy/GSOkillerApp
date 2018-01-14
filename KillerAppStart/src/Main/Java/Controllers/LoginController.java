@@ -1,20 +1,21 @@
-package Controllers;
+package controllers;
 
-import classes.Singletons.PlayerSingleton;
+import classes.singletons.PlayerSingleton;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
+
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
-public class LoginController implements Initializable{
+
+public class LoginController {
+
 
     /**
      *  GUI objects
@@ -34,10 +35,7 @@ public class LoginController implements Initializable{
     /**
      *  Initializet
      */
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
 
-    }
 
     /**
      *  Actions
@@ -45,6 +43,8 @@ public class LoginController implements Initializable{
     @FXML
     public void btnLogin(Event e)
     {
+
+
         String username = tfUsername.getText();
         String password = pfPassword.getText();
 
@@ -59,7 +59,8 @@ public class LoginController implements Initializable{
             try {
                 root1 = fxmlLoader.load();
             } catch (IOException e1) {
-                e1.printStackTrace();
+                Logger log = Logger.getLogger("Warning");
+                log.warning(e.toString());
             }
             if (root1 != null) {
                 Stage stage2 = new Stage();

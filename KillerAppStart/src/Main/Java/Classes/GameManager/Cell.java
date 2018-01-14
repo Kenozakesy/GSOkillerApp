@@ -1,6 +1,6 @@
 package classes.gamemanager;
 
-import Enums.Side;
+import enums.Side;
 import javafx.scene.canvas.GraphicsContext;
 
 import javafx.scene.paint.Color;
@@ -61,9 +61,9 @@ public class Cell implements Serializable {
         this.coordinate = coordinate;
         this.anchor = anchor;
         if (color == Color.BLACK) {
-            colorStatic = Side.Black;
+            colorStatic = Side.BLACK;
         } else {
-            colorStatic = Side.White;
+            colorStatic = Side.WHITE;
         }
     }
 
@@ -71,7 +71,7 @@ public class Cell implements Serializable {
      * Methods
      */
     public void setColor() {
-        if (colorStatic == Side.Black) {
+        if (colorStatic == Side.BLACK) {
             color = Color.BLACK;
         } else {
             color = Color.WHITE;

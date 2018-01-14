@@ -1,9 +1,9 @@
 package ClassesTest.LobbyManagerTest;
 
-import classes.LobbyManager.Lobby;
-import classes.LobbyManager.LobbyManager;
-import classes.LobbyManager.LobbyPlayer;
-import classes.Singletons.PlayerSingleton;
+import classes.lobbymanager.Lobby;
+import classes.lobbymanager.LobbyManager;
+import classes.lobbymanager.LobbyPlayer;
+import classes.singletons.PlayerSingleton;
 import org.junit.Assert;
 import org.junit.Test;
 

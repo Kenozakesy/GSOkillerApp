@@ -1,4 +1,4 @@
-package Interfaces;
+package interfaces;
 
 import classes.clientapplication.Player;
 import classes.gamemanager.Game;

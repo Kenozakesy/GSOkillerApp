@@ -1,9 +1,9 @@
-package Enums;
+package enums;
 
 /**
  * Created by Gebruiker on 12-12-2017.
  */
 public enum Side {
-    Black,
-    White
+    BLACK,
+    WHITE
 }

@@ -1,41 +1,43 @@
-package StartUp;
+package startup;
 
-import classes.LobbyManager.LobbyManager;
+import classes.lobbymanager.LobbyManager;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.logging.Logger;
 
 /**
  * Created by Gebruiker on 12-12-2017.
  */
 public class LobbyServer {
 
+    private static final Logger log = Logger.getLogger("attention");
     private static Registry registry = null;
-    private static final String bindingName = "lobbyServer";
-    private static final int port = 1099;
-    private static LobbyManager lobbyManager = null;
+    private static final String BINDINGNAME = "lobbyServer";
+    private static final int PORT = 1099;
+
 
     public static void main(String[] args) {
 
+        LobbyManager lobbyManager;
+
         // Create a newGame
         lobbyManager = LobbyManager.getInstance();
-        System.out.println("Server: Lobby created");
+        log.warning("Server: Lobby created");
 
         try {
-            registry = LocateRegistry.createRegistry(port);
+            registry = LocateRegistry.createRegistry(PORT);
         } catch (Exception e) {
-            System.out.println("ERROR: Could not create the registry.");
-            e.printStackTrace();
+            log.warning("ERROR: Could not create the registry.");
+            log.warning(e.toString());
         }
 
-        //Server serverObject = new Server();
-
         try {
-            registry.rebind(bindingName, lobbyManager);
-            System.out.println("lobby server started");
+            registry.rebind(BINDINGNAME, lobbyManager);
+            log.warning("lobby server started");
         } catch (Exception e) {
-            System.out.println("ERROR: Failed to register the server object.");
-            e.printStackTrace();
+            log.warning("ERROR: Failed to register the server object.");
+            log.warning(e.toString());
         }
     }
 

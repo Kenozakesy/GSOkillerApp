@@ -1,6 +1,6 @@
 package ClassesTest.DatabaseTest;
 
-import Database.DatabaseConnection;
+import database.DatabaseConnection;
 import org.junit.Assert;
 import org.junit.Test;
 

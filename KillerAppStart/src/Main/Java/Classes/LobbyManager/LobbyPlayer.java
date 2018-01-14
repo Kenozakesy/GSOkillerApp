@@ -1,6 +1,5 @@
-package classes.LobbyManager;
+package classes.lobbymanager;
 
-import Enums.Side;
 
 import java.io.Serializable;
 
@@ -14,8 +13,6 @@ public class LobbyPlayer implements Serializable{
      */
     private int uniqueId;
     private String name;
-    private String password;
-    private Side side;
 
     private boolean host;
 
@@ -65,13 +62,16 @@ public class LobbyPlayer implements Serializable{
 
         LobbyPlayer other = (LobbyPlayer) obj;
 
-        if (!other.name.equals(name)) {
+        if (!other.name.equals(name) || other.uniqueId != uniqueId) {
             return false;
         }
-        if (other.uniqueId != uniqueId) {
-            return false;
-        }
-
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + name.hashCode();
+        return result;
     }
 }

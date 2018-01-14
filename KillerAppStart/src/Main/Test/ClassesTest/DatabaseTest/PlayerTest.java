@@ -1,7 +1,7 @@
 package ClassesTest.DatabaseTest;
 
 import classes.clientapplication.Player;
-import Database.PlayerManager;
+import database.PlayerManager;
 import org.junit.Assert;
 import org.junit.Test;
 

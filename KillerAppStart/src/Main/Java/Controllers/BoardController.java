@@ -1,13 +1,13 @@
-package Controllers;
+package controllers;
 
 import classes.clientapplication.Player;
 import classes.gamemanager.Cell;
 import classes.gamemanager.Game;
 import classes.gamemanager.PlayerInGame;
-import classes.Singletons.PlayerSingleton;
+import classes.singletons.PlayerSingleton;
 import FontysPublisher.IRemotePropertyListener;
-import Interfaces.IGameManager;
-import StartUp.Connections.GameServerConnection;
+import interfaces.IGameManager;
+import startup.connections.GameServerConnection;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
+import java.beans.Transient;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -29,6 +30,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Logger;
 
 /**
  * Created by Gebruiker on 12-12-2017.
@@ -62,12 +64,15 @@ public class BoardController extends UnicastRemoteObject implements Initializabl
     /**
      * Fields
      */
-    Timer timer;
-    TimerTask task;
-    private IGameManager gamemanager;
+    private transient Logger log = Logger.getLogger("warning");
+    transient Timer timer;
+    transient TimerTask task;
+    private transient IGameManager gamemanager;
     private Game game;
 
-    public BoardController() throws RemoteException {}
+    public BoardController() throws RemoteException {
+        //is empty because of RMI
+    }
 
     /**
      * Initialize
@@ -87,31 +92,24 @@ public class BoardController extends UnicastRemoteObject implements Initializabl
             update();
 
         } catch (RemoteException e) {
-
-            e.printStackTrace();
+            log.warning(e.toString());
         }
     }
 
     /**
      * Actions
      */
-    @FXML
-    public void btnReset() {
-
-    }
-
     //code has to be restructured
     @FXML
     public void canvasClick(MouseEvent mouse) {
 
-        boolean check = true;
         Rectangle mouseLocation = new Rectangle((int) mouse.getX(), (int) mouse.getY(), 1, 1);
 
         Player player = PlayerSingleton.getPlayer();
         PlayerInGame pig = new PlayerInGame(player.getUniqueId(), player.getName());
 
         //kijkt of speler wel spel mag veranderen
-        if (check && pig.equals(game.getCurrentPlayerTurn())) {
+        if (pig.equals(game.getCurrentPlayerTurn())) {
 
             //loops through every cell generated
             for (Cell C : game.getBoard().getCells()) {
@@ -126,9 +124,8 @@ public class BoardController extends UnicastRemoteObject implements Initializabl
                         try {
                             GameServerConnection.getInstance().sendGame(game);
                         } catch (RemoteException e) {
-                            e.printStackTrace();
+                            log.warning(e.toString());
                         }
-                        //update();
                         break;
                     } else {
                         //hier bereken algoritme
@@ -139,7 +136,7 @@ public class BoardController extends UnicastRemoteObject implements Initializabl
                             try {
                                 GameServerConnection.getInstance().sendGameDatabase(game);
                             } catch (RemoteException e) {
-                                e.printStackTrace();
+                                log.warning(e.toString());
                             }
                             lbNotify.setText("succes");
                             break;
@@ -152,9 +149,6 @@ public class BoardController extends UnicastRemoteObject implements Initializabl
                 }
             }
         }
-        //At the bottom it stays
-
-        //update();
     }
 
     public void drawCanvas() {
@@ -219,7 +213,7 @@ public class BoardController extends UnicastRemoteObject implements Initializabl
             try {
                 root1 = fxmlLoader.load();
             } catch (IOException e1) {
-                e1.printStackTrace();
+                log.warning(e1.toString());
             }
             if (root1 != null) {
                 Stage stage2 = new Stage();
@@ -235,15 +229,15 @@ public class BoardController extends UnicastRemoteObject implements Initializabl
     @Override
     public synchronized void propertyChange(PropertyChangeEvent evt) throws RemoteException {
 
-        Game game = (Game) evt.getNewValue();
+        Game newgame = (Game) evt.getNewValue();
 
         Player player = PlayerSingleton.getPlayer();
         PlayerInGame pig = new PlayerInGame(player.getUniqueId(), player.getName());
 
-        for (PlayerInGame p : game.getPlayers()) {
+        for (PlayerInGame p : newgame.getPlayers()) {
             if(p.equals(pig))
             {
-                this.game = game;
+                this.game = newgame;
                 game.setColors();
                 update();
                 break;

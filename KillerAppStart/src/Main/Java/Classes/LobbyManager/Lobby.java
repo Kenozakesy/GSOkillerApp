@@ -1,7 +1,7 @@
-package classes.LobbyManager;
+package classes.lobbymanager;
 
 import classes.clientapplication.Player;
-import classes.Singletons.PlayerSingleton;
+import classes.singletons.PlayerSingleton;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -57,7 +57,7 @@ public class Lobby implements Serializable {
         lobbyPlayers.remove(playerData);
     }
 
-    public LobbyPlayer CheckPlayerInLobby(LobbyPlayer p)
+    public LobbyPlayer checkPlayerInLobby(LobbyPlayer p)
     {
         for (LobbyPlayer lobbyPlayer : lobbyPlayers) {
             if(lobbyPlayer.equals(p))

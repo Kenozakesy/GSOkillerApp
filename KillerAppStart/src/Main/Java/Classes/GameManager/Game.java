@@ -77,7 +77,7 @@ public class Game implements Serializable{
     public boolean checkGameWon() {
         PlayerInGame loser = null;
         for (PlayerInGame P : players) {
-            if (P.getStones().size() == 0) {
+            if (P.getStones().isEmpty()) {
                 loser = P;
             }
         }

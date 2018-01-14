@@ -1,6 +1,7 @@
-package Database;
+package database;
 
 import java.sql.*;
+import java.util.logging.Logger;
 
 /**
  * Created by Gebruiker on 13-12-2017.
@@ -10,6 +11,8 @@ public class DatabaseConnection
     private java.sql.Connection connection;
     private Statement statement;
     private ResultSet result;
+
+    private static Logger log = Logger.getLogger("warning");
 
     public DatabaseConnection(){
         connection = setConnection();
@@ -22,12 +25,11 @@ public class DatabaseConnection
     // Deze is static omdat we niet weten waarom het static moet zijn, maar er genoeg reden voor waren, alleen die hebben we niet meer onthouden.
     public static Connection setConnection(){
         try{
-           // String dbDriver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-           // Class.forName(dbDriver).newInstance();
+
             return DriverManager.getConnection("jdbc:jtds:sqlserver://localhost:1433;databaseName=GSOkillerApp", "", "");
         }
         catch(Exception exception){
-            exception.printStackTrace();
+            log.warning(exception.toString());
             return null;
         }
     }
@@ -37,7 +39,7 @@ public class DatabaseConnection
             try {
                 statement.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.warning(e.toString());
             }
         }
     }
@@ -47,7 +49,7 @@ public class DatabaseConnection
             try {
                 result.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.warning(e.toString());
             }
         }
     }
@@ -57,7 +59,7 @@ public class DatabaseConnection
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.warning(e.toString());
             }
         }
     }

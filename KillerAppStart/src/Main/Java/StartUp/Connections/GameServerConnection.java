@@ -1,14 +1,15 @@
-package StartUp.Connections;
+package startup.connections;
 
 import classes.clientapplication.Player;
 import classes.gamemanager.Game;
 import FontysPublisher.IRemotePropertyListener;
-import Interfaces.IGameManager;
+import interfaces.IGameManager;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by Gebruiker on 3-1-2018.
@@ -16,13 +17,14 @@ import java.util.List;
 public class GameServerConnection implements IGameManager{
 
     //singleton value
+    private static Logger log = Logger.getLogger("Warning!");
     private static GameServerConnection data;
 
-    private String ipAddress = "127.0.0.1";
+    private String ipAddress = "localhost";
     private String bindingName = "gameServer";
     private int portNumber = 1098;
 
-    private Registry registry = null;
+
     private IGameManager gameManager;
 
     /**
@@ -35,7 +37,7 @@ public class GameServerConnection implements IGameManager{
             try {
                 data = new GameServerConnection();
             } catch (RemoteException e) {
-                e.printStackTrace();
+                log.warning(e.toString());
             }
         }
         return data;
@@ -54,12 +56,13 @@ public class GameServerConnection implements IGameManager{
      */
     public void connect() {
         try {
+            Registry registry;
             registry = LocateRegistry.getRegistry(ipAddress, portNumber);
             gameManager = (IGameManager) registry.lookup(bindingName);
 
-            System.out.println("Connected to gameServer");
+            log.warning("Connected to gameServer");
         } catch (Exception e) {
-            e.printStackTrace();
+            log.warning(e.toString());
         }
     }
 
@@ -69,7 +72,7 @@ public class GameServerConnection implements IGameManager{
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            log.warning(e.toString());
         }
     }
 
@@ -84,8 +87,7 @@ public class GameServerConnection implements IGameManager{
 
     @Override
     public Game getGame(Player player) throws RemoteException {
-        Game game = gameManager.getGame(player);
-        return game;
+        return gameManager.getGame(player);
     }
 
     @Override
@@ -101,12 +103,12 @@ public class GameServerConnection implements IGameManager{
 
     @Override
     public void subscribeRemoteListener(IRemotePropertyListener listener, String property) throws RemoteException {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void unsubscribeRemoteListener(IRemotePropertyListener listener, String property) throws RemoteException {
-
+        throw new UnsupportedOperationException();
     }
 
 

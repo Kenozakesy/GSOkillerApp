@@ -1,6 +1,6 @@
 package classes.gamemanager;
 
-import Enums.ColorStatic;
+import enums.ColorStatic;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -17,14 +17,12 @@ public class Stone implements Serializable {
      */
     private Cell cell;
 
-    private boolean dam;
     private int width;
     private int height;
     private transient Color color;
     private transient Color selectedColor;
     private transient Color originalColor;
     private Point coordinate;
-    private Point coordinateNext;
     private Point anchor;
 
     private ColorStatic colorStatic;
@@ -58,20 +56,18 @@ public class Stone implements Serializable {
      */
     public Stone(Color color, Point anchor, Point coordinate) {
         this.selected = false;
-        this.dam = false;
         this.height = 50;
         this.width = 50;
         this.color = color;
         this.selectedColor = Color.RED;
         this.originalColor = color;
         this.coordinate = coordinate;
-        this.coordinateNext = null;
         this.anchor = anchor;
 
         if (color == Color.BLACK) {
-            colorStatic = ColorStatic.Black;
+            colorStatic = ColorStatic.BLACK;
         } else {
-            colorStatic = ColorStatic.White;
+            colorStatic = ColorStatic.WHITE;
         }
     }
 
@@ -81,10 +77,10 @@ public class Stone implements Serializable {
     public void setColor() {
         this.selectedColor = Color.RED;
 
-        if (colorStatic == ColorStatic.Black) {
+        if (colorStatic == ColorStatic.BLACK) {
             color = Color.BLACK;
             this.originalColor = Color.BLACK;
-        } else if (colorStatic == ColorStatic.White) {
+        } else if (colorStatic == ColorStatic.WHITE) {
             color = Color.WHITE;
             this.originalColor = Color.WHITE;
         }

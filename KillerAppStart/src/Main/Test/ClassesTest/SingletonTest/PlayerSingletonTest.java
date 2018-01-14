@@ -1,6 +1,6 @@
 package ClassesTest.SingletonTest;
 
-import classes.Singletons.PlayerSingleton;
+import classes.singletons.PlayerSingleton;
 import org.junit.Assert;
 import org.junit.Test;
 

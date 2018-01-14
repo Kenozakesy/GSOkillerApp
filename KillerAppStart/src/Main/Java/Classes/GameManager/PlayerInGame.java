@@ -1,6 +1,6 @@
 package classes.gamemanager;
 
-import Enums.Side;
+import enums.Side;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -16,7 +16,7 @@ public class PlayerInGame implements Serializable {
     /**
      * Fields
      */
-    private static Side staticSide = Side.Black;
+    private static Side staticSide = Side.BLACK;
     private ArrayList<Stone> stones;
     private Game game;
 
@@ -52,13 +52,22 @@ public class PlayerInGame implements Serializable {
         this.game = game;
         this.name = name;
 
-        this.side = staticSide;
-        if (staticSide == Side.Black) {
-            staticSide = Side.White;
-        } else {
-            staticSide = Side.Black;
-        }
+        staticUpdate();
+
         createStones();
+    }
+
+    private void staticUpdate()
+    {
+        this.side = staticSide;
+        if(staticSide == Side.BLACK)
+        {
+            staticSide = Side.WHITE;
+        }
+        else
+        {
+            staticSide = Side.BLACK;
+        }
     }
 
     public PlayerInGame(int uniqueId, String name) {
@@ -69,6 +78,7 @@ public class PlayerInGame implements Serializable {
     /**
      * Methods
      */
+
     public void setColors() {
         for (Stone s : stones) {
             s.setColor();
@@ -100,8 +110,8 @@ public class PlayerInGame implements Serializable {
         return null;
     }
 
-    private void createStones() {
-        if (side == Side.Black) {
+    public void createStones() {
+        if (side == Side.BLACK) {
 
             int odd = 0;
             for (Cell C : game.getBoard().getCells()) {
@@ -109,7 +119,7 @@ public class PlayerInGame implements Serializable {
                 if (odd > 24) {
                     break;
                 }
-                if (C.getColor() == Color.BLACK) {
+                else if (C.getColor() == Color.BLACK) {
                     Point anchor = new Point(C.getAnchor().x + 10, C.getAnchor().y + 10);
                     Point coordinate = new Point(C.getCoordinate().x, C.getCoordinate().y);
                     Stone stone = new Stone(Color.BLACK, anchor, coordinate);
@@ -127,7 +137,7 @@ public class PlayerInGame implements Serializable {
                 if (odd > 64) {
                     break;
                 }
-                if (C.getColor() == Color.BLACK && odd > 40) {
+                else if (C.getColor() == Color.BLACK && odd > 40) {
                     Point anchor = new Point(C.getAnchor().x + 10, C.getAnchor().y + 10);
                     Point coordinate = new Point(C.getCoordinate().x, C.getCoordinate().y);
                     Stone stone = new Stone(Color.WHITE, anchor, coordinate);
@@ -160,7 +170,7 @@ public class PlayerInGame implements Serializable {
         }
 
         switch (this.side) {
-            case White:
+            case WHITE:
                 Color black = Color.BLACK;
                 if ( //move
                         (sl.getCoordinate().x == destination.getCoordinate().x - 1 || sl.getCoordinate().x == destination.getCoordinate().x + 1) &&
@@ -178,7 +188,7 @@ public class PlayerInGame implements Serializable {
                 }
 
                 break;
-            case Black:
+            case BLACK:
                 Color white = Color.WHITE;
                 if ( //move
                         (sl.getCoordinate().x == destination.getCoordinate().x - 1 || sl.getCoordinate().x == destination.getCoordinate().x + 1) &&
@@ -201,15 +211,15 @@ public class PlayerInGame implements Serializable {
         return false;
     }
 
-    private boolean hitStoneCheck(Cell SL, Cell destination, Stone stone, Color color) {
+    private boolean hitStoneCheck(Cell sl, Cell destination, Stone stone, Color color) {
         //hit
-        int midX = (SL.getCoordinate().x + destination.getCoordinate().x) / 2;
-        int midY = (SL.getCoordinate().y + destination.getCoordinate().y) / 2;
+        int midX = (sl.getCoordinate().x + destination.getCoordinate().x) / 2;
+        int midY = (sl.getCoordinate().y + destination.getCoordinate().y) / 2;
         Point point = new Point(midX, midY);
         for (Cell C : game.getBoard().getCells()) {
             if (C.getCoordinate().equals(point) && C.getStone() != null && C.getStone().getColor() == color) {
                 Stone removable = C.getStone();
-                hitStone(stone, removable, destination, SL);
+                hitStone(stone, removable, destination, sl);
                 return true;
 
             }
@@ -218,10 +228,10 @@ public class PlayerInGame implements Serializable {
 
     }
 
-    private void moveStone(Stone stone, Cell destination, Cell SL) {
+    private void moveStone(Stone stone, Cell destination, Cell sl) {
         stone.setCell(destination);
         destination.setStone(stone);
-        SL.removeStone();
+        sl.removeStone();
     }
 
     private void hitStone(Stone stone, Stone removable, Cell destination, Cell sl) {
@@ -259,12 +269,17 @@ public class PlayerInGame implements Serializable {
 
         PlayerInGame other = (PlayerInGame) obj;
 
-        if (!other.name.equals(name)) {
+        if (!other.name.equals(name) || other.uniqueId != uniqueId) {
             return false;
         }
-        if (other.uniqueId != uniqueId) {
-            return false;
-        }
+
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + name.hashCode();
+        return result;
     }
 }

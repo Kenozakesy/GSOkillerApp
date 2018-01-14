@@ -1,15 +1,16 @@
-package classes.LobbyManager;
+package classes.lobbymanager;
 
-import classes.Singletons.PlayerSingleton;
-import Enums.MessageType;
+import classes.singletons.PlayerSingleton;
+import enums.MessageType;
 import FontysPublisher.IRemotePropertyListener;
 import FontysPublisher.RemotePublisher;
-import Interfaces.ILobbyManager;
+import interfaces.ILobbyManager;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by Gebruiker on 13-12-2017.
@@ -19,10 +20,13 @@ public class LobbyManager extends UnicastRemoteObject implements ILobbyManager {
     /**
      * Fields
      */
+
+    private static Logger log = Logger.getLogger("warning");
+
     private static LobbyManager instance;
     private List<Lobby> lobbys;
-
-    public RemotePublisher publisher;
+    private RemotePublisher publisher;
+    private static final String LOBBY = "lobby";
 
     /**
      * Properties
@@ -32,7 +36,7 @@ public class LobbyManager extends UnicastRemoteObject implements ILobbyManager {
             try {
                 instance = new LobbyManager();
             } catch (RemoteException e) {
-                e.printStackTrace();
+                log.warning(e.toString());
             }
         }
         return instance;
@@ -50,12 +54,12 @@ public class LobbyManager extends UnicastRemoteObject implements ILobbyManager {
         lobbys = new ArrayList<>();
 
         String[] properties = new String[2];
-        properties[0] = "lobby";
+        properties[0] = LOBBY;
         properties[1] = "test";
         try {
             publisher = new RemotePublisher(properties);
         } catch (RemoteException e) {
-            e.printStackTrace();
+            log.warning(e.toString());
         }
     }
 
@@ -78,7 +82,7 @@ public class LobbyManager extends UnicastRemoteObject implements ILobbyManager {
         newLobby.addPlayer(lobbyPlayer);
         lobbys.add(newLobby);
 
-        publisher.inform("lobby", null, lobbys);
+        publisher.inform(LOBBY, null, lobbys);
         return true;
     }
 
@@ -92,11 +96,16 @@ public class LobbyManager extends UnicastRemoteObject implements ILobbyManager {
                 break;
             }
         }
+        if(lobbyData == null)
+        {
+            return false;
+        }
 
         Lobby lobbyIn = null;
 
+
         //als je dezelfde lobby aanklikt waar je inzit
-        LobbyPlayer player = lobbyData.CheckPlayerInLobby(lobbyPlayer);
+        LobbyPlayer player = lobbyData.checkPlayerInLobby(lobbyPlayer);
         if (player != null) {
             if (player.isHost()) {
                 lobbys.remove(lobbyData);
@@ -116,20 +125,17 @@ public class LobbyManager extends UnicastRemoteObject implements ILobbyManager {
                 }
             }
 
-            if(lobbyData.getLobbyPlayers().size() < 2) {
-                if(lobbyIn != null)
-                {
+            if (lobbyData.getLobbyPlayers().size() < 2) {
+                if (lobbyIn != null) {
                     lobbyIn.removePlayer(lobbyPlayer);
                 }
                 lobbyData.addPlayer(lobbyPlayer);
-            }
-            else
-            {
+            } else {
                 return false;
             }
         }
 
-        publisher.inform("lobby", null, lobbys);
+        publisher.inform(LOBBY, null, lobbys);
         return true;
     }
 
@@ -152,13 +158,16 @@ public class LobbyManager extends UnicastRemoteObject implements ILobbyManager {
                 }
             }
         }
-
+        if(playerData == null)
+        {
+            return;
+        }
         if (playerData.isHost()) {
             lobbys.remove(lobbyData);
         } else {
             lobbyData.getLobbyPlayers().remove(playerData);
         }
-        publisher.inform("lobby", null, lobbys);
+        publisher.inform(LOBBY, null, lobbys);
     }
 
     @Override
@@ -176,9 +185,9 @@ public class LobbyManager extends UnicastRemoteObject implements ILobbyManager {
             }
         }
 
-        MessageType type = MessageType.startGame;
+        MessageType type = MessageType.STARTGAME;
         //doorsturen
-        publisher.inform("lobby", type, lobbyplayers);
+        publisher.inform(LOBBY, type, lobbyplayers);
     }
 
     @Override
@@ -225,7 +234,7 @@ public class LobbyManager extends UnicastRemoteObject implements ILobbyManager {
         LobbyPlayer player = PlayerSingleton.getPlayer().getLobbyPlayer();
         for (Lobby l : lobbys) {
 
-            LobbyPlayer lobbyPlayer = l.CheckPlayerInLobby(player);
+            LobbyPlayer lobbyPlayer = l.checkPlayerInLobby(player);
             if(l.getLobbyPlayers().contains(lobbyPlayer) && l.getLobbyPlayers().size() >= 2 && lobbyPlayer.isHost())
             {
                 return true;

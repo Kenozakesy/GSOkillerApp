@@ -1,6 +1,6 @@
 package classes.clientapplication;
 
-import classes.LobbyManager.LobbyPlayer;
+import classes.lobbymanager.LobbyPlayer;
 import java.io.Serializable;
 
 /**

@@ -1,7 +1,7 @@
 package ClassesTest.ClientApplicationTest;
 
 import classes.clientapplication.Player;
-import classes.LobbyManager.LobbyPlayer;
+import classes.lobbymanager.LobbyPlayer;
 import org.junit.Assert;
 import org.junit.Test;
 
