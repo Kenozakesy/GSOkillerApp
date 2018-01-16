@@ -134,9 +134,6 @@ public class DatabaseSaveGame {
                 String sql2 = "INSERT INTO Stone (NewCoordinateX, NewCoordinateY, color, TURN_ID) VALUES (?, ?, ?, ?)";
                 PreparedStatement preparedStatement2 = connection.getConnection().prepareStatement(sql2);
 
-                //int stoneid = getHighestID("Stone") + 1;
-
-                //preparedStatement2.setInt(1, stoneid);
                 preparedStatement2.setDouble(1, s.getCoordinate().getX());
                 preparedStatement2.setDouble(2, s.getCoordinate().getY());
                 preparedStatement2.setString(3, s.getSideColor().toString());

@@ -103,15 +103,14 @@ public class GameManager extends UnicastRemoteObject implements IGameManager {
 
         //hier sla je dingen in de database op
         DatabaseSaveGame.saveTurn(game);
-
-
-
+        
         //hier nieuw turn aanmaken
         game.switchTurns();
         publisher.inform("game", null, game);
 
         if(game.checkGameWon())
         {
+            DatabaseSaveGame.setWinner(game);
             games.remove(game);
         }
     }
