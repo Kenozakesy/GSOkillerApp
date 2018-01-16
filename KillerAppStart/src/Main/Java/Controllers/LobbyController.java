@@ -209,7 +209,23 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
     @FXML
     public void btnHistory()
     {
-        //still in development
+        Stage stage = (Stage) btnCheckHistory.getScene().getWindow();
+        stage.close();
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../boardView_getgame.fxml"));
+        Parent root1 = null;
+        try {
+            root1 = fxmlLoader.load();
+        } catch (IOException e) {
+            Logger log = Logger.getLogger("Warning");
+            log.warning(e.toString());
+        }
+        if (root1 != null) {
+            Stage stage2 = new Stage();
+            stage2.setScene(new Scene(root1));
+
+            stage2.show();
+        }
     }
 
     /**

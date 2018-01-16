@@ -348,6 +348,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/Main/Java/controllers/GetGameController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/Main/Java/controllers/LobbyController.java">
           <value>
             <set />
@@ -364,6 +369,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/Main/Java/database/DatabaseConnection.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/Main/Java/database/DatabaseGetGame.java">
           <value>
             <set />
           </value>
@@ -474,6 +484,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/Main/Test/ClassesTest/GameManagerTest/BoardTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/Main/Test/ClassesTest/GameManagerTest/GameTest.java">
           <value>
             <set />
           </value>

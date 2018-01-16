@@ -70,6 +70,11 @@ public class Game implements Serializable{
         this.name = name;
     }
 
+    public Game(int uniqueid, String name) {
+        this.name = name;
+        this.uniqueid = uniqueid;
+    }
+
 
     /**
      * Methods
@@ -133,4 +138,8 @@ public class Game implements Serializable{
         }
     }
 
+    @Override
+    public String toString() {
+        return "ID: " + this.uniqueid + ", name: " + this.name;
+    }
 }

@@ -84,5 +84,8 @@ public class GameTest {
 
         Assert.assertFalse(game.checkGameWon());
         Assert.assertNull(game.getWinner());
+
+        String gameid = "ID: 0, name: null";
+        Assert.assertEquals(gameid, game.toString());
     }
 }

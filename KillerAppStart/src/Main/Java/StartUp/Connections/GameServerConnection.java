@@ -100,6 +100,11 @@ public class GameServerConnection implements IGameManager{
         gameManager.sendGameDatabase(game);
     }
 
+    @Override
+    public List<Game> getAllGamesFromPlayer(Player player) throws RemoteException {
+        return gameManager.getAllGamesFromPlayer(player);
+    }
+
 
     @Override
     public void subscribeRemoteListener(IRemotePropertyListener listener, String property) throws RemoteException {
