@@ -80,6 +80,14 @@ public class PlayerInGame implements Serializable {
         this.name = name;
     }
 
+    public PlayerInGame(int id, String name, Side side)
+    {
+        this.uniqueId = id;
+        this.name = name;
+        this.side = side;
+    }
+
+
     /**
      * Methods
      */

@@ -76,6 +76,7 @@ public class GetGameController implements Initializable{
             //game.setColors();
 
             update();
+
         } catch (RemoteException e) {
             log.warning(e.toString());
         }
@@ -90,7 +91,13 @@ public class GetGameController implements Initializable{
         if(lvGames.getSelectionModel().getSelectedIndex() != -1)
         {
             Game game = (Game) lvGames.getSelectionModel().getSelectedItem();
-
+            Game testgame = null;
+            try {
+                testgame = GameServerConnection.getInstance().getGameStateTurn(game.getUniqueid(), 1);
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
+            }
+            System.out.println(testgame.getPlayers().size());
         }
     }
 
@@ -121,6 +128,7 @@ public class GetGameController implements Initializable{
 
     private void update() {
 
+        //drawCanvas();
         lvGames.getItems().clear();
         for (Game g: gameList)
         {

@@ -105,6 +105,11 @@ public class GameServerConnection implements IGameManager{
         return gameManager.getAllGamesFromPlayer(player);
     }
 
+    @Override
+    public Game getGameStateTurn(int gameid, int turnnumber) throws RemoteException {
+        return gameManager.getGameStateTurn(gameid, turnnumber);
+    }
+
 
     @Override
     public void subscribeRemoteListener(IRemotePropertyListener listener, String property) throws RemoteException {

@@ -19,4 +19,5 @@ public interface IGameManager extends Remote, IRemotePublisherForListener{
         void sendGame(Game game) throws RemoteException;
         void sendGameDatabase(Game game) throws RemoteException;
         List<Game> getAllGamesFromPlayer(Player player) throws RemoteException;
+        Game getGameStateTurn(int gameid, int turnnumber) throws RemoteException;
 }

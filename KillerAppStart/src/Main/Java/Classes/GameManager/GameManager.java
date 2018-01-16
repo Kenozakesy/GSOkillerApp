@@ -122,6 +122,11 @@ public class GameManager extends UnicastRemoteObject implements IGameManager {
     }
 
     @Override
+    public Game getGameStateTurn(int gameid, int turnnumber) throws RemoteException {
+        return DatabaseGetGame.getGameStateTurn(gameid, turnnumber);
+    }
+
+    @Override
     public synchronized void subscribeRemoteListener(IRemotePropertyListener listener, String property) throws RemoteException {
         publisher.subscribeRemoteListener(listener, property);
     }

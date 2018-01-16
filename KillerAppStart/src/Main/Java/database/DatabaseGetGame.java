@@ -57,6 +57,62 @@ public class DatabaseGetGame {
     }
 
     public static Game getGameStateTurn(int gameid, int turnnumber) {
-        throw  new NotImplementedException();
+
+        DatabaseConnection connection = new DatabaseConnection();
+
+        Game gamebegin = null;
+
+        try {
+            //eerst ophalen game
+            String sql = "SELECT P.name as Pname,P.ID AS pid ,G.name as Gname, PG.COLOR as COLOR \n" +
+                    "FROM game G \n" +
+                    "JOIN Player_Game PG ON PG.GAME_ID = G.ID \n" +
+                    "JOIN PLAYER P ON PG.Player_ID = P.ID\n" +
+                    "WHERE G.ID = ?" ;
+
+            PreparedStatement preparedStatement = connection.getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1, gameid);
+            //preparedStatement.setInt(2, turnnumber);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            List<PlayerInGame> playerlist = new ArrayList<>();
+
+            while (resultSet.next()) { //hier game aanmaken
+                if(gamebegin == null) {
+                    String name = resultSet.getString("Gname");
+                    gamebegin = new Game(gameid, name, turnnumber);
+                }
+
+                String color = resultSet.getString("COLOR");
+                Side side = null;
+                if(color.equals("BLACK"))
+                {
+                    side = Side.BLACK;
+                } else {
+                    side = Side.WHITE;
+                }
+
+                int playerid = resultSet.getInt("pid");
+                String playername = resultSet.getString("Pname");
+                PlayerInGame pig = new PlayerInGame(playerid, playername, side);
+                playerlist.add(pig);
+            }
+            gamebegin.addPlayersDatabase(playerlist);
+
+            //nu nog alle stonen ophalen
+
+            return gamebegin;
+
+
+
+        } catch (SQLException ex) {
+            log.warning(ex.toString());
+        } finally {
+            connection.closeAll();
+        }
+
+        return gamebegin;
+
     }
 }

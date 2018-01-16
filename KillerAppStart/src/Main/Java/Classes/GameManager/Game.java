@@ -70,6 +70,13 @@ public class Game implements Serializable{
         this.name = name;
     }
 
+    public Game(int uniqueid, String name, int turn) {
+        generateBoard();
+        this.name = name;
+        this.uniqueid = uniqueid;
+        this.turn = turn;
+    }
+
     public Game(int uniqueid, String name) {
         this.name = name;
         this.uniqueid = uniqueid;
@@ -85,6 +92,12 @@ public class Game implements Serializable{
         for (PlayerInGame p : players) {
             p.setColors();
         }
+    }
+
+    public void addPlayersDatabase(List<PlayerInGame> players)
+    {
+        this.players = new ArrayList<>();
+        this.players.addAll(players);
     }
 
     public boolean checkGameWon() {
