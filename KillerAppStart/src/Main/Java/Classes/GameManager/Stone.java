@@ -74,6 +74,12 @@ public class Stone implements Serializable {
     /**
      * Methods
      */
+    public ColorStatic getSideColor()
+    {
+        return this.colorStatic;
+    }
+
+
     public void setColor() {
         this.selectedColor = Color.RED;
 

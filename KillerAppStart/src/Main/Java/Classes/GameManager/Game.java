@@ -15,6 +15,7 @@ public class Game implements Serializable{
     /**
      * Fields
      */
+    private int uniqueid;
     private int turn;
     private Board board;
     private List<PlayerInGame> players;
@@ -38,6 +39,13 @@ public class Game implements Serializable{
         return board;
     }
 
+    public int getUniqueid() {
+        return uniqueid;
+    }
+
+    public void setUniqueid(int uniqueid) {
+        this.uniqueid = uniqueid;
+    }
 
     public PlayerInGame getCurrentPlayerTurn() {
         return currentPlayerTurn;

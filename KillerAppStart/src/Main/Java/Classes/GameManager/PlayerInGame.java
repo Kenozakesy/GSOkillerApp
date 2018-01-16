@@ -43,6 +43,10 @@ public class PlayerInGame implements Serializable {
         return stones;
     }
 
+    public Side getSide() {
+        return side;
+    }
+
     /**
      * Constructor
      */
@@ -52,14 +56,15 @@ public class PlayerInGame implements Serializable {
         this.game = game;
         this.name = name;
 
+        side = staticSide;
         staticUpdate();
+
 
         createStones();
     }
 
-    private void staticUpdate()
+    private static void staticUpdate()
     {
-        this.side = staticSide;
         if(staticSide == Side.BLACK)
         {
             staticSide = Side.WHITE;

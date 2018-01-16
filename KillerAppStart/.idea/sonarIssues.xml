@@ -368,6 +368,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/Main/Java/database/DatabaseSaveGame.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/Main/Java/database/PlayerManager.java">
           <value>
             <set />
@@ -384,6 +389,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/Main/Java/enums/Side.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/Main/Java/interfaces/IGameManager.java">
           <value>
             <set />
           </value>
@@ -554,6 +564,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/Main/Test/LobbyManagerTest/LobbyTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../PTS3.2/src/main/java/business/MainServerManager.java">
           <value>
             <set />
           </value>

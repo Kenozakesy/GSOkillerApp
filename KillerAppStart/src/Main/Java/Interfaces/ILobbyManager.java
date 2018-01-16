@@ -19,4 +19,6 @@ public interface ILobbyManager extends Remote, IRemotePublisherForListener{
     void removePlayerExistence(LobbyPlayer player) throws  RemoteException;
     void startGame(LobbyPlayer player) throws  RemoteException;
     List<LobbyPlayer> getPlayerList(LobbyPlayer player) throws  RemoteException;
+
+
 }

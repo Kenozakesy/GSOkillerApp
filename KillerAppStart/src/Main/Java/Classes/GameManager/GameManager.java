@@ -3,6 +3,7 @@ package classes.gamemanager;
 import classes.clientapplication.Player;
 import FontysPublisher.IRemotePropertyListener;
 import FontysPublisher.RemotePublisher;
+import database.DatabaseSaveGame;
 import interfaces.IGameManager;
 
 import java.rmi.RemoteException;
@@ -67,6 +68,8 @@ public class GameManager extends UnicastRemoteObject implements IGameManager {
         game.addPlayers(players);
         games.add(game);
 
+        DatabaseSaveGame.saveGame(game);
+        DatabaseSaveGame.saveTurn(game);
         //Hier voor het eerst game opslaan in database
 
     }
@@ -90,6 +93,7 @@ public class GameManager extends UnicastRemoteObject implements IGameManager {
     @Override
     public synchronized void sendGame(Game game) throws RemoteException {
 
+
         //hiet moet eigenlijk een aanpassing doorgestuurd worden
         publisher.inform("game", null, game);
     }
@@ -98,7 +102,7 @@ public class GameManager extends UnicastRemoteObject implements IGameManager {
     public void sendGameDatabase(Game game) throws RemoteException {
 
         //hier sla je dingen in de database op
-
+        DatabaseSaveGame.saveTurn(game);
 
 
 
