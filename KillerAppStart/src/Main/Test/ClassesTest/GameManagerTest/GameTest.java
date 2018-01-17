@@ -20,9 +20,20 @@ public class GameTest {
     {
         String name = "name";
         Game game = new Game(name);
+        Game game2 = new Game(1 ,name, 1);
+        Game game3 = new Game(1 ,name);
 
+        List playlist = new ArrayList();
+        playlist.add(new PlayerInGame(1, "NAME"));
+        game3.addPlayersDatabase(playlist);
 
         Assert.assertEquals(game.getName(), name);
+
+        game2.increaseTurn();
+        Assert.assertEquals(game2.getTurn(), 2);
+        game2.decreaseTurn();
+        Assert.assertEquals(game2.getTurn(), 1);
+
     }
 
     @Test

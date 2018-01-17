@@ -70,7 +70,9 @@ public class GameManager extends UnicastRemoteObject implements IGameManager {
         games.add(game);
 
         DatabaseSaveGame.saveGame(game);
+        game.decreaseTurn();
         DatabaseSaveGame.saveTurn(game);
+        game.increaseTurn();
         //Hier voor het eerst game opslaan in database
 
     }
@@ -103,10 +105,14 @@ public class GameManager extends UnicastRemoteObject implements IGameManager {
     public synchronized void sendGameDatabase(Game game) throws RemoteException {
 
         //hier sla je dingen in de database op
+
         DatabaseSaveGame.saveTurn(game);
 
-        //hier nieuw turn aanmaken
         game.switchTurns();
+
+        //hier nieuw turn aanmaken
+
+
         publisher.inform("game", null, game);
 
         if(game.checkGameWon())

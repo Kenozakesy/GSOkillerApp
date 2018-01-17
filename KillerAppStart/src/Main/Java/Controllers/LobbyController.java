@@ -217,7 +217,6 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
         try {
             root1 = fxmlLoader.load();
         } catch (IOException e) {
-            Logger log = Logger.getLogger("Warning");
             log.warning(e.toString());
         }
         if (root1 != null) {

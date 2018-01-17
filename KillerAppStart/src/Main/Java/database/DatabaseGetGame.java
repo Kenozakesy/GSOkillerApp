@@ -4,11 +4,9 @@ import classes.clientapplication.Player;
 import classes.gamemanager.Game;
 import classes.gamemanager.PlayerInGame;
 import classes.gamemanager.Stone;
+import enums.ColorStatic;
 import enums.Side;
-import javafx.scene.paint.Color;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.awt.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -72,7 +70,6 @@ public class DatabaseGetGame {
 
             PreparedStatement preparedStatement = connection.getConnection().prepareStatement(sql);
             preparedStatement.setInt(1, gameid);
-            //preparedStatement.setInt(2, turnnumber);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -98,14 +95,49 @@ public class DatabaseGetGame {
                 PlayerInGame pig = new PlayerInGame(playerid, playername, side);
                 playerlist.add(pig);
             }
+            if(gamebegin == null)
+            {
+                return null;
+            }
             gamebegin.addPlayersDatabase(playerlist);
 
-            //nu nog alle stonen ophalen
+            //nu nog alle stonen ophalen-------------------------------------------
+            //eerst ophalen game
+            String sql2 = "SELECT NewCoordinateX AS X, NewCoordinateY AS Y, S.color AS color\n" +
+                    "FROM game G \n" +
+                    "Inner JOIN Turn T ON G.ID = T.GAME_ID\n" +
+                    "JOIN Stone S ON S.TURN_ID = T.ID\n" +
+                    "WHERE G.ID = ?\n" +
+                    "AND t.NUMBER = ?" ;
+
+            PreparedStatement preparedStatement2 = connection.getConnection().prepareStatement(sql2);
+            preparedStatement2.setInt(1, gameid);
+            preparedStatement2.setInt(2, turnnumber);
+
+            ResultSet resultSet2 = preparedStatement2.executeQuery();
+
+            List<Stone> stonelist = new ArrayList<>();
+
+            while (resultSet2.next()) { //hier game aanmaken
+                int X = resultSet2.getInt("X");
+                int Y = resultSet2.getInt("Y");
+                String color = resultSet2.getString("COLOR");
+                ColorStatic side;
+                if(color.equals("BLACK"))
+                {
+                    side = ColorStatic.BLACK;
+                } else {
+                    side = ColorStatic.WHITE;
+                }
+                Stone stone = new Stone(X, Y, side);
+                stonelist.add(stone);
+            }
+
+            for (PlayerInGame p : gamebegin.getPlayers()) {
+               p.setStonesList(stonelist);
+            }
 
             return gamebegin;
-
-
-
         } catch (SQLException ex) {
             log.warning(ex.toString());
         } finally {

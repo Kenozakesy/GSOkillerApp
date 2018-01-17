@@ -117,6 +117,16 @@ public class Game implements Serializable{
         return false;
     }
 
+    public void decreaseTurn()
+    {
+        this.turn--;
+    }
+
+    public void increaseTurn()
+    {
+        this.turn++;
+    }
+
     //for now only one player and computer AI
     public void addPlayers(List<Player> playerlist) {
         //instanieert lijst

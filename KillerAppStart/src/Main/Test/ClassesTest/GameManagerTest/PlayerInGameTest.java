@@ -1,6 +1,7 @@
 package ClassesTest.GameManagerTest;
 
 import classes.clientapplication.Player;
+import enums.Side;
 import org.junit.Assert;
 import org.junit.Test;
 import classes.gamemanager.*;
@@ -68,6 +69,7 @@ public class PlayerInGameTest {
 
         PlayerInGame pig = new PlayerInGame(id, name);
         PlayerInGame pig2 = new PlayerInGame(id, name);
+        PlayerInGame pig3 = new PlayerInGame(id, name, Side.BLACK);
         PlayerInGame pigfalse1 = new PlayerInGame(id, "");
         PlayerInGame pigfalse2 = new PlayerInGame(1, name);
 

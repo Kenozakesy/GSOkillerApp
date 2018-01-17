@@ -1,0 +1,2 @@
+
+¥%squid:RedundantThrowsDeclarationCheck"vRemove the declaration of thrown exception 'java.rmi.RemoteException', as it cannot be thrown from constructor's body.(™Έν‚

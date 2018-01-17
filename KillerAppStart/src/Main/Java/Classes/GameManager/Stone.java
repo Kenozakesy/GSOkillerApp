@@ -1,6 +1,7 @@
 package classes.gamemanager;
 
 import enums.ColorStatic;
+import enums.Side;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -69,6 +70,19 @@ public class Stone implements Serializable {
         } else {
             colorStatic = ColorStatic.WHITE;
         }
+    }
+
+    public  Stone(int x, int y, ColorStatic color)
+    {
+        this.coordinate = new Point(x, y);
+
+        x -= 1;
+        y -= 1;
+        this.anchor = new Point((x * 70) + 10, (y * 70) + 10);
+
+        this.colorStatic = color;
+        this.width = 50;
+        this.height = 50;
     }
 
     /**

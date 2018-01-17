@@ -6,7 +6,8 @@ import javafx.scene.paint.Color;
 
 import java.awt.*;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.*;
+import java.util.List;
 
 /**
  * Created by Gebruiker on 13-12-2017.
@@ -91,6 +92,16 @@ public class PlayerInGame implements Serializable {
     /**
      * Methods
      */
+    public void setStonesList(List<Stone> stones)
+    {
+        this.stones = new ArrayList<>();
+        for (Stone s : stones) {
+            if(s.getSideColor().toString().equals(this.side.toString()))
+            {
+                this.stones.add(s);
+            }
+        }
+    }
 
     public void setColors() {
         for (Stone s : stones) {

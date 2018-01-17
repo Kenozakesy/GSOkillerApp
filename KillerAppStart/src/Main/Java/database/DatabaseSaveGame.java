@@ -61,9 +61,11 @@ public class DatabaseSaveGame {
         int id = 0;
 
         try {
-            String sql = "select MAX(ID) as ID FROM " + table;
+            String sql = "select MAX(ID) as ID FROM ?";
             PreparedStatement preparedStatement = connection.getConnection().prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
+
+            preparedStatement.setString(1, table);
 
             while (resultSet.next()) {
                 id = resultSet.getInt("ID");

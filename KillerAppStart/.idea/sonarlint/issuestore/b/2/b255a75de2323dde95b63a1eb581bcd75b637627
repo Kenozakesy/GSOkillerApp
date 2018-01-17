@@ -1,0 +1,5 @@
+
+Vsquid:S1126"AReplace this if-then-else statement by a single return statement.(±à±±
+esquid:S1301"KReplace this "switch" statement by "if" statements to increase readability.(ÊÉÂöùÿÿÿÿ
+lsquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(´‘•¦ûÿÿÿÿ
+„squid:S1319"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(à­œ5

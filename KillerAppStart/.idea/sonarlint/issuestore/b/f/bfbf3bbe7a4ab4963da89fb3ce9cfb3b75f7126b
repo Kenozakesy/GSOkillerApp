@@ -1,0 +1,6 @@
+
+Esquid:S2160"+Override the "equals" method in this class.(›ÌãÛúÿÿÿÿ
+m
+squid:S135"YReduce the total number of break and continue statements in this loop to use at most one.(á’É§
+Xsquid:UselessImportCheck"1Remove this unused import 'java.beans.Transient'.(–ÉŽ³ÿÿÿÿÿ
+lsquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 29 to the 15 allowed.(Ýè©Ýúÿÿÿÿ

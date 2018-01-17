@@ -468,12 +468,22 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/Main/Resources/boardView_getgame.fxml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/Main/Resources/lobbyView.fxml">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/Main/Resources/loginView.fxml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/Main/Test/ClassesTest/DatabaseTest/DatabaseGetGametest.java">
           <value>
             <set />
           </value>
@@ -489,6 +499,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/Main/Test/ClassesTest/GameManagerTest/GameTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/Main/Test/ClassesTest/GameManagerTest/PlayerInGameTest.java">
           <value>
             <set />
           </value>
